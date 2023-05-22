@@ -16,5 +16,10 @@ namespace Ex03.GarageLogic
         {
             m_Car = i_Car;
         }
+        public FuelCar(string i_LicenseNumber)
+            :base(FuelType.Octan95, 46, 2, 33, i_LicenseNumber)
+        {
+
+        }
     }
 }

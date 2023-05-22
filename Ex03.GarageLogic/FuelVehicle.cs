@@ -27,6 +27,14 @@ namespace Ex03.GarageLogic
             m_CurrentFuelLevel = i_RemainingEnergyPercentage * m_FuelTankCapacity;
         }
 
+        protected FuelVehicle(FuelType i_FuelType, float i_FuelTankCapacity, int i_NumOfWheels, float i_MaxWheelPressure, string i_LicenseNumber)
+            : base(i_NumOfWheels, i_MaxWheelPressure, i_LicenseNumber)
+        {
+            m_FuelType= i_FuelType;
+            m_FuelTankCapacity = i_FuelTankCapacity;
+        }
+
+
         public void Refuel(FuelType i_FuelType, float i_FuelAmount)
         {
             if (m_FuelType == i_FuelType)
