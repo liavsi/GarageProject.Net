@@ -25,5 +25,66 @@ namespace Ex03.GarageLogic
                 m_Wheels.Add(wheel);
             } 
         }
+        public string ModelName
+        {
+            get
+            {
+                return r_ModelName;
+            }
+        }
+
+        public string LicenseNumber
+        {
+            get
+            {
+                return r_LicenseNumber;
+            }
+        }
+
+        public List<Wheel> WheelsList
+        {
+            get
+            {
+                return r_WheelsList;
+            }
+        }
+        public VehicleOwner Owner
+        {
+            get
+            {
+                return m_Owner;
+            }
+
+            set
+            {
+                m_Owner = value;
+            }
+        }
+
+        public eVehicleStatus VehicleStatus
+        {
+            get
+            {
+                return m_VehicleStatus;
+            }
+
+            set
+            {
+                m_VehicleStatus = value;
+            }
+        }
+
+        public eVehicleType VehicleType
+        {
+            get
+            {
+                return m_VehicleType;
+            }
+
+            set
+            {
+                m_VehicleType = value;
+            }
+        }
     }
 }

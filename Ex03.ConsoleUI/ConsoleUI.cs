@@ -8,41 +8,49 @@ namespace Ex03.ConsoleUI
 {
     internal class ConsoleUI
     {
-        private Garage m_garage = new Garage();
-
+        private GarageManager m_Garage = new GarageManager();
+        private Validation m_validation = new Validation();
         public void GarageUI()
         {
             int usersChoice;
-            
+            bool isUserUsingSystem = true;
+
             PrintWelcomeScreen();
-            PrintMenu();
-            usersChoice = GetUsersChoice();
-            switch (usersChoice)
-            {
-                case 1:
-                    InlistNewVehicle();
-                    break;
-                case 2:
-                    GetLicenseNumbersInGarage();
-                    break;
-                case 3:
-                    ChanegeVehicleStatus();
-                    break;
-                case 4:
-                    InflateTiresToMaxCapacity();
-                    break;
-                case 5:
-                    FuelVehicle();
-                    break;
-                case 6:
-                    ChargeVehicle();
-                    break;
-                case 7:
-                    GetVehicleInfo();
-                    break;
-                default:
-                    Console.WriteLine("Invalid number.");
-                    break;
+            while (isUserUsingSystem)
+            { 
+                PrintMenu();
+                usersChoice = GetUsersChoice();
+                switch (usersChoice)
+                {
+                    case 1:
+                        InlistNewVehicle();
+                        break;
+                    case 2:
+                        GetLicenseNumbersInGarage();
+                        break;
+                    case 3:
+                        ChanegeVehicleStatus();
+                        break;
+                    case 4:
+                        InflateTiresToMaxCapacity();
+                        break;
+                    case 5:
+                        FuelVehicle();
+                        break;
+                    case 6:
+                        ChargeVehicle();
+                        break;
+                    case 7:
+                        GetVehicleInfo();
+                        break;
+                    case 8:
+                        Console.WriteLine("Goodbye");
+                        isUserUsingSystem = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid number.");
+                        break;
+                }
             }
         }
         private void PrintWelcomeScreen()
@@ -64,6 +72,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("5. Fual a vehicle with gas");
             Console.WriteLine("6. Charge an electric vehicle");
             Console.WriteLine("7. Present a vehicles' information");
+            Console.WriteLine("8. Exit system");
         }
         private int GetUsersChoice()
         {
@@ -77,7 +86,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to inlist a new vehicle");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            m_garage.InlistNewVehicle(licenseNumber);
+            m_Garage.InlistNewVehicle(licenseNumber);
         }
         private void GetLicenseNumbersInGarage()
         {
@@ -92,7 +101,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to change a vehicles' status");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            m_garage.InlistNewVehicle(licenseNumber);
+            m_Garage.InlistNewVehicle(licenseNumber);
             Console.WriteLine("Please enter the vehicles' new status:");
             vehicleStatus = Console.ReadLine();
             //need to overload to parse or something
@@ -105,16 +114,51 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to inflate the tires to the maximum capacity");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            m_garage.InflateTiresToMaxCapacity(licenseNumber);
+            m_Garage.InflateTiresToMaxCapacity(licenseNumber);
         }
-        public void FuelVehicle()
+        public void ReuelVehicle()
         {
-            string carInfoToFuel;
+            string carInfoToFuel="", currentInput, licenseNumber;
+            bool isCorrectInput = false;
+            Vehicle vehicle;
 
             Console.WriteLine("You chose to fuel vehicle");
-            Console.WriteLine("Please enter the vehicles' license number, type of fuel and amount of fuel:");
-            carInfoToFuel = Console.ReadLine();
-            m_garage.FuelVehicle(carInfoToFuel);
+            Console.WriteLine("Please enter the vehicles' license number:");
+            licenseNumber = Console.ReadLine();
+            bool isVehicleExists = m_Garage.TryGetVehicle(licenseNumber, out vehicle);
+
+            if(isVehicleExists)
+            {
+                if(vehicle is FuelVehicle)
+                {
+
+                }
+            }
+            while (!isCorrectInput)
+            {
+                try
+                {
+                    
+                    isCorrectInput = true; // Break out of the loop if input is valid
+                
+                }
+            }
+            carInfoToFuel += currentInput;
+                Console.WriteLine("Please enter the type of fuel:");
+                currentInput = Console.ReadLine();
+                carInfoToFuel += currentInput;
+                Console.WriteLine("Please enter the amount of fuel:");
+                currentInput = Console.ReadLine();
+                carInfoToFuel += currentInput;
+                m_garage.FuelVehicle(carInfoToFuel);
+                
+                catch (ValidationException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Please try again:");
+                }
+            
+            
         }
         public void ChargeVehicle()
         {
