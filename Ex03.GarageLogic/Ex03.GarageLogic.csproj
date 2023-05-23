@@ -35,12 +35,16 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ConsoleOutputs.cs" />
     <Compile Include="ElectricCar.cs" />
     <Compile Include="ElectricMotorcycle.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="FuelVehicle.cs" />
-    <Compile Include="Garage.cs" />
+    <Compile Include="GarageManager.cs" />
     <Compile Include="NonFuelVehicle.cs" />
+    <Compile Include="Validation.cs" />
     <Compile Include="Vehicle.cs" />
+    <Compile Include="VehicleFactory.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
