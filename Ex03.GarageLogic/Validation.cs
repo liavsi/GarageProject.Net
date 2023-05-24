@@ -20,13 +20,16 @@ namespace Ex03.GarageLogic
             if(int.TryParse(i_NumberStr,out int number))
             {
                 if (number < 0)
-                    throw new ArgumentException();
+                {
+                    throw new ValueOutOfRangeException(0, 99999999);
+                }  
             }
             else
             {
-                throw new ArgumentException("the number is not a number");
+                throw new FormatException("the number is not a number");
             }
         }
+
 
 
     }
