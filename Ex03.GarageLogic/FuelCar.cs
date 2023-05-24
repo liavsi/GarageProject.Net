@@ -32,6 +32,10 @@ namespace Ex03.GarageLogic
         {
             return eVehicleType.RegularCar;
         }
+        public override string ToString()
+        {
+            return base.ToString() + m_Car.ToString();
+        }
 
     }
 }

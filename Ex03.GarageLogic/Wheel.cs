@@ -34,5 +34,14 @@ namespace Ex03.GarageLogic
         {
             m_CurrentAirPressure = m_MaxAirPressure;
         }
+
+        public override string ToString()
+        {
+            string wheelString = string.Format(@"Wheel:
+Manufacture: {0}
+Max Air Pressure: {1}
+Current Air Pressure", m_Manufactur, m_MaxAirPressure, m_CurrentAirPressure);
+            return wheelString;
+        }
     }
 }

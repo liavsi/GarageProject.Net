@@ -46,7 +46,7 @@ namespace Ex03.ConsoleUI
                         InflateTiresToMaxCapacity();
                         break;
                     case eUserSelect.ReFuelVehicle:
-                        ReFuelVehicles();
+                        ReFuelVehicle();
                         break;
                     case eUserSelect.ChargeVehicle:
                         ChargeVehicle();
@@ -183,12 +183,8 @@ namespace Ex03.ConsoleUI
             string licenseNumber = Console.ReadLine();
             Enum.TryParse<eFuelType>(Console.ReadLine(),out eFuelType fuelType);
             float LitersToAdd = float.Parse(Console.ReadLine());
-            if (!m_Garage.ReFuelVehicle(licenseNumber, fuelType, LitersToAdd))
-            {
-                throw new ArgumentException("This License Number is not of an electric car in our garage");
-            }
-
-
+            m_Garage.ReFuelVehicle(licenseNumber, fuelType, LitersToAdd);
+       
         }
         public void ChargeVehicle()
         {
@@ -197,10 +193,8 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter the vehicles' license number and how many minutes to charge:");
             string licenseNumber = Console.ReadLine();
             float hoursToAdd = float.Parse(Console.ReadLine());
-            if(!m_Garage.ChargeVehicle(licenseNumber, hoursToAdd))
-            {
-                throw new ArgumentException("This License Number is not of an electric car in our garage");
-            }
+            m_Garage.ChargeVehicle(licenseNumber, hoursToAdd);
+           
 
         }
         public void GetVehicleInfo()
@@ -210,7 +204,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to present a vehicles' information");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            m_garage.ShowVehicleInfo(licenseNumber);
+            m_Garage.ShowVehicleInfo(licenseNumber);
         }
     }
 }

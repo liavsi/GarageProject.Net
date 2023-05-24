@@ -33,5 +33,12 @@ namespace Ex03.GarageLogic
             io_NeededProparties.Add(LICENSE_TYPE);
             io_NeededProparties.Add(ENGINE_VOLUME);
         }
+
+        public override string ToString()
+        {
+            return string.Format(
+                @"License Type: {0}
+Engine Volume: {1}", m_LicenseType.ToString(),m_EngineVolume);
+        }
     }
 }

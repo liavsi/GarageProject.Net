@@ -54,47 +54,70 @@ namespace Ex03.GarageLogic
             VehicleFactory.UpdateVehicleState(i_vehicle,  i_VehicleType, i_PropartiesKeyValue);
         }
 
-        public bool ChargeVehicle(string i_LicenseNumber, float i_HoursToAdd)
+        public void ChargeVehicle(string i_LicenseNumber, float i_HoursToAdd)
         {
-            bool isElectricCar = false;
             if (m_Vehicles.ContainsKey(i_LicenseNumber))
             {
                 Vehicle vehicle  = m_Vehicles[i_LicenseNumber];
                 if(vehicle is ElectricVehicle)
                 {
                     (vehicle as ElectricVehicle).ChargeBattary(i_HoursToAdd);
-                    isElectricCar = true;
                 }
+                throw new ArgumentException(i_LicenseNumber);
             }
-            return isElectricCar;
+            else
+            {
+                throw new ValueOutOfRangeException();
+            }
         }
 
-        public bool ReFuelVehicle(string i_LicenseNumber, eFuelType i_FuelType, float i_LitersToAdd)
+        public void ReFuelVehicle(string i_LicenseNumber, eFuelType i_FuelType, float i_LitersToAdd)
         {
-            bool isFueledVehicle = false;
             if (m_Vehicles.ContainsKey(i_LicenseNumber))
             {
                 Vehicle vehicle = m_Vehicles[i_LicenseNumber];
                 if (vehicle is FuelVehicle)
                 {
                     (vehicle as FuelVehicle).Refuel(i_FuelType, i_LitersToAdd);
-                    isFueledVehicle = true;
+                }
+                else
+                {
+                    throw new ArgumentException(i_LicenseNumber);
                 }
             }
-            return isFueledVehicle;
+            else
+            {
+                throw new ValueOutOfRangeException();
+            }
         }
 
-        public bool InflateWheelsToMax(string i_LicenseNumber)
+        public void InflateWheelsToMax(string i_LicenseNumber)
         {
-            bool isInflated = false;
             if(m_Vehicles.ContainsKey(i_LicenseNumber))
             {
                 Vehicle vehicle = m_Vehicles[i_LicenseNumber];
                 vehicle.InflateWheelsToMax();
-                isInflated = true;
+            }
+            else
+            {
+                throw new ArgumentException(i_LicenseNumber);
             }
 
-            return isInflated;
+        }
+
+        public string GetCarAsString(string i_LicenseNumber)
+        {
+            string vehicleString = "";
+            if (m_Vehicles.ContainsKey(i_LicenseNumber))
+            {
+                Vehicle vehicle = m_Vehicles[i_LicenseNumber];
+                vehicleString += vehicle.ToString();
+            }
+            else
+            {
+                throw new ValueOutOfRangeException();
+            }
+            return vehicleString;
         }
 
     }

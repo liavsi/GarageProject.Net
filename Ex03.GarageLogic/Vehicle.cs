@@ -71,7 +71,16 @@ namespace Ex03.GarageLogic
 
         }
 
+        public override string ToString()
+        {
+            string vehicleString = string.Format(
+           @"License Number: {0}
+Model: {1}
+Tires specifications:{3}
+Energy Percentage: {4:0.00}%", r_LicenseNumber, m_ModelName, m_Wheels[0].ToString(), m_RemainingEnergyPercentage);
 
+            return vehicleString;
+        }
         public static void NeededProparties(ref List<string> io_NeededProparties)
         {
             foreach(string PropartyName in r_PropartyNames)

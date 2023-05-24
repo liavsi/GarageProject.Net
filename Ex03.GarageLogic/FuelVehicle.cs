@@ -55,5 +55,13 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException();
             }
         }
+        public override string ToString()
+        {
+            string FuelString = base.ToString() + string.Format(@"Engine: Fuel
+FuelType: {0}
+Fuel Tank Capacity: {1}
+Current Liters Remain: {2}", m_FuelType, m_FuelTankCapacity, m_CurrentFuelLevel);
+            return FuelString;
+        }
     }
 }

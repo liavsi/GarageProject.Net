@@ -46,5 +46,11 @@ namespace Ex03.GarageLogic
             io_NeededProparties.Add("Color");
             io_NeededProparties.Add("Number Of Doors");
         }
+        public override string ToString()
+        {
+            return string.Format(@"Number Of Doors: {0}
+Color: {1}
+",m_NumOfDoors, m_CarColor.ToString());
+        }
     }
 }

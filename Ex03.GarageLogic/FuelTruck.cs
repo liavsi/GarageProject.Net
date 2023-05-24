@@ -29,5 +29,11 @@ namespace Ex03.GarageLogic
         {
             return eVehicleType.RegularTruck;
         }
+
+        public override string ToString()
+        {
+            string FuelTruckStr = base.ToString() + m_Truck.ToString();
+            return FuelTruckStr;
+        }
     }
 }
