@@ -20,9 +20,9 @@ namespace Ex03.GarageLogic
 
         public bool TryEnterVehicleByLicense(string i_License)
         {
-            bool isEntered =m_Vehicles.ContainsKey(i_License);
+            bool isEntered = m_Vehicles.ContainsKey(i_License);
             if (isEntered)
-            { 
+            {
                 // MoveToRepair(i_License); 
             }
             return isEntered;
@@ -40,7 +40,7 @@ namespace Ex03.GarageLogic
             return result;
         }
 
-        public void CreateVehicle(string i_License, eVehicleType i_VehicleType, Dictionary<string,string> i_PropartiesKeyValue)
+        public void CreateVehicle(string i_License, eVehicleType i_VehicleType, Dictionary<string, string> i_PropartiesKeyValue)
         {
             Vehicle vehicle = VehicleFactory.CreateVehicle(i_License, i_VehicleType, i_PropartiesKeyValue);
             if (vehicle == null)
@@ -52,15 +52,15 @@ namespace Ex03.GarageLogic
 
         public void UpdateVehicleState(Vehicle i_vehicle, eVehicleType i_VehicleType, Dictionary<string, string> i_PropartiesKeyValue)
         {
-            VehicleFactory.UpdateVehicleState(i_vehicle,  i_VehicleType, i_PropartiesKeyValue);
+            VehicleFactory.UpdateVehicleState(i_vehicle, i_VehicleType, i_PropartiesKeyValue);
         }
 
         public void ChargeVehicle(string i_LicenseNumber, float i_HoursToAdd)
         {
             if (m_Vehicles.ContainsKey(i_LicenseNumber))
             {
-                Vehicle vehicle  = m_Vehicles[i_LicenseNumber];
-                if(vehicle is ElectricVehicle)
+                Vehicle vehicle = m_Vehicles[i_LicenseNumber];
+                if (vehicle is ElectricVehicle)
                 {
                     (vehicle as ElectricVehicle).ChargeBattary(i_HoursToAdd);
                 }
@@ -94,7 +94,7 @@ namespace Ex03.GarageLogic
 
         public void InflateWheelsToMax(string i_LicenseNumber)
         {
-            if(m_Vehicles.ContainsKey(i_LicenseNumber))
+            if (m_Vehicles.ContainsKey(i_LicenseNumber))
             {
                 Vehicle vehicle = m_Vehicles[i_LicenseNumber];
                 vehicle.InflateWheelsToMax();

@@ -7,6 +7,7 @@ namespace Ex03.GarageLogic
 {
     public class Validation
     {
+
         public static void IsValidLicenseNumber(string i_NumberStr)
         {
             if(int.TryParse(i_NumberStr,out int number))
@@ -21,9 +22,6 @@ namespace Ex03.GarageLogic
                 throw new FormatException("the number is not a number");
             }
         }
-
-
-
     }
     
 }
