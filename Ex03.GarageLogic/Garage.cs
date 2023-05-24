@@ -17,9 +17,10 @@ namespace Ex03.GarageLogic
             m_Vehicles = new Dictionary<string, Vehicle>();
         }
 
-        public bool TryEnterCarByLicense(string i_License)
+        public bool TryEnterVehicleByLicense(string i_License)
         {
             bool isEntered = m_Vehicles[i_License] != null;
+
             if (isEntered)
             { 
                 // MoveToRepair(i_License); 
@@ -53,6 +54,16 @@ namespace Ex03.GarageLogic
         {
             VehicleFactory.UpdateVehicleState(i_vehicle,  i_VehicleType, i_PropartiesKeyValue);
         }
-
+         public void MoveToRepair(ref Vehicle io_vehicle)
+        {
+            
+        }
+        public void GetAllLicenseNumbers()
+        {
+            foreach (string key in m_Vehicles.Keys)
+            {
+                Console.WriteLine(key);
+            }
+        }
     }
 }
