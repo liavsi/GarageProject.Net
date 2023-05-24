@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    internal class Garage
+    public class Garage
     {
         private Dictionary<string, Vehicle> m_Vehicles;
         //to do: VehicleInfo class - ownerName(string) owenerPhone(string) and carState(enum)
@@ -26,13 +26,13 @@ namespace Ex03.GarageLogic
             return isEntered;
         }
 
-        public List<string> GetNeededProparties(VehicleFactory.eVehicleType i_VehicleType)
+        public List<string> GetNeededProparties(eVehicleType i_VehicleType)
         {
             List<string> result = VehicleFactory.GetNeededProparties(i_VehicleType);
             return result;
         }
 
-        public void CreateVehicle(string i_License, VehicleFactory.eVehicleType i_VehicleType, Dictionary<string,string> i_PropartiesKeyValue)
+        public void CreateVehicle(string i_License, eVehicleType i_VehicleType, Dictionary<string,string> i_PropartiesKeyValue)
         {
             Vehicle vehicle = VehicleFactory.CreateVehicle(i_License, i_VehicleType, i_PropartiesKeyValue);
             if (vehicle == null)
