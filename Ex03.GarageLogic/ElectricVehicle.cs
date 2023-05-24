@@ -8,30 +8,24 @@ namespace Ex03.GarageLogic
     internal abstract class ElectricVehicle : Vehicle
     {
         private float m_CurrentEnergy = 0;
-        private float m_MaxEnergy;
+        private float m_MaxCharge; //in hours
 
 
-        public ElectricVehicle(float i_MaxEnergy, string i_ModelName, string i_LicenseNumber, float i_RemainingEnergyPercentage, int i_NumOfWheels, float i_MaxWheelPressure, string i_WheelsManufacture)
-            : base(i_ModelName,i_LicenseNumber, i_RemainingEnergyPercentage,i_NumOfWheels, i_MaxWheelPressure,i_WheelsManufacture)
+        public ElectricVehicle(string i_LicenseNumber, List<string> i_ManufacturProparties)
+            : base(i_LicenseNumber, i_ManufacturProparties)
         {
-            m_MaxEnergy = i_MaxEnergy; 
+            string maxChargestr = i_ManufacturProparties[VehicleFactory.MaxChargeIndex];
+            if (!(float.TryParse(maxChargestr, out m_MaxCharge)))
+            {
+                throw new Exception("coudnt read");
+            }
         }
 
-        public ElectricVehicle(string i_LicenseNumber)
-            :base(i_LicenseNumber)
-        {
 
-        }
-
-        public float CurrentEnergy
-        { get { return m_CurrentEnergy; } set { m_CurrentEnergy = value; } }
-
-        public float MaxEnergy
-        { get { return m_MaxEnergy; } set { m_MaxEnergy = value; } }
 
         public void ChargeBattary(float i_HoursToAdd)
         {
-            if (m_CurrentEnergy + i_HoursToAdd > MaxEnergy)
+            if (m_CurrentEnergy + i_HoursToAdd > m_MaxCharge)
             {
                 throw new ArgumentException("more hours than maximum");
             }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public enum FuelType
+    public enum eFuelType
     {
         Soler,
         Octan95,
@@ -15,27 +15,23 @@ namespace Ex03.GarageLogic
 
     internal abstract class FuelVehicle : Vehicle
     {
-        private FuelType m_FuelType;
+        private eFuelType m_FuelType;
         private float m_FuelTankCapacity;
         private float m_CurrentFuelLevel;
 
-        public FuelVehicle(FuelType i_FuelType, float i_FuelTankCapacity, string i_ModelName, string i_LicenseNumber, float i_RemainingEnergyPercentage, int i_NumOfWheels, float i_MaxWheelPressure, string i_WheelsManufacture)
-            : base(i_ModelName,i_LicenseNumber, i_RemainingEnergyPercentage,i_NumOfWheels, i_MaxWheelPressure,i_WheelsManufacture)
+        public FuelVehicle(string i_LicenseNumber, List<string> i_ManufacturProparties)
+            : base(i_LicenseNumber, i_ManufacturProparties)
         {
-            m_FuelType = i_FuelType;
-            m_FuelTankCapacity = i_FuelTankCapacity;
-            m_CurrentFuelLevel = i_RemainingEnergyPercentage * m_FuelTankCapacity;
-        }
-
-        protected FuelVehicle(FuelType i_FuelType, float i_FuelTankCapacity, int i_NumOfWheels, float i_MaxWheelPressure, string i_LicenseNumber)
-            : base(i_NumOfWheels, i_MaxWheelPressure, i_LicenseNumber)
-        {
-            m_FuelType= i_FuelType;
-            m_FuelTankCapacity = i_FuelTankCapacity;
+            string fuelTypeStr = i_ManufacturProparties[VehicleFactory.FuelTypeIndex];
+            string fuelTankCapacityStr = i_ManufacturProparties[VehicleFactory.FuelTankIndex];
+            if (!(Enum.TryParse<eFuelType>(fuelTypeStr, out m_FuelType) && float.TryParse(fuelTankCapacityStr,out m_FuelTankCapacity)))
+            {
+                throw new Exception("coudnt read");
+            }
         }
 
 
-        public void Refuel(FuelType i_FuelType, float i_FuelAmount)
+        public void Refuel(eFuelType i_FuelType, float i_FuelAmount)
         {
             if (m_FuelType == i_FuelType)
             {

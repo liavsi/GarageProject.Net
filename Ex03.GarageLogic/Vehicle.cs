@@ -7,42 +7,32 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        //private VehicleInfo m_VehicleInfo;
         private string m_ModelName;
         private readonly string r_LicenseNumber;
         private float m_RemainingEnergyPercentage;
         private List<Wheel> m_Wheels;
 
-        // public Vehicle(string i_ModelName, string i_LicenseNumber, float i_RemainingEnergyPercentage, int i_NumOfWheels, float i_MaxWheelPressure, string i_WheelsManufacture)
-        // {
-        //     r_ModelName = i_ModelName;
-        //     r_LicenseNumber = i_LicenseNumber;
-        //     m_RemainingEnergyPercentage = i_RemainingEnergyPercentage;
-        //     m_Wheels = new List<Wheel>(i_NumOfWheels);
-        //     for (int i = 0; i < i_NumOfWheels; i++)
-        //     {
-        //         Wheel wheel = new Wheel(i_WheelsManufacture, i_MaxWheelPressure);
-        //         m_Wheels.Add(wheel);
-        //     } 
-        // }
 
-        public Vehicle(int i_NumOfWheels, float i_MaxWheelPressure,string i_WheelsManufacture, string i_LicenseNumber)
+        public Vehicle(string i_LicenseNumber, List<string> i_ManufacturProparties)
         {
+            string numOfWheelsStr = i_ManufacturProparties[VehicleFactory.NumOfWheelIndex];
+            string maxWheelPressureStr = i_ManufacturProparties[VehicleFactory.MaxWheelPressureIndex];
             r_LicenseNumber = i_LicenseNumber;
-            m_Wheels = new List<Wheel>(i_NumOfWheels);
-            for (int i = 0; i < i_NumOfWheels; i++)
+            if (int.TryParse(numOfWheelsStr, out int numOfWheels) && int.TryParse(maxWheelPressureStr, out int maxWheelPressure))
             {
-                Wheel wheel = new Wheel(i_WheelsManufacture, i_MaxWheelPressure);
-                m_Wheels.Add(wheel);
-            } 
+                for (int i = 0; i < numOfWheels; i++)
+                {
+                    // todo
+                    //Wheel wheel = new Wheel(maxWheelPressure);
+                    //m_Wheels.Add(wheel);
+                }
+            }
+            else
+            {
+                throw new Exception("bad manufacture settings");
+            }
         }
 
-        public virtual void ParseChangeState(string i_VehicleState)
-        {
-            char[] separators = new char[] { ' ', ',' };
-            string[] subs = i_VehicleState.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            m_ModelName = subs[0];
-        
-        }
+
     }
 }

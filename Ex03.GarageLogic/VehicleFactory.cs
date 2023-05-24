@@ -8,43 +8,95 @@ namespace Ex03.GarageLogic
     internal class VehicleFactory
     {
 
-        public static Vehicle CreateVehicle(string i_LicsenseNumber, string i_VehicleEnergyType, string i_VehicleType, string i_VehicleState)
+        private static Dictionary<eVehicleType, List<string>> m_FactoryVehicleSettings;
+
+        public const int NumOfWheelIndex = 0;
+        public const int MaxWheelPressureIndex = 1;
+        public const int FuelTypeIndex = 2;
+        public const int MaxChargeIndex = 2;
+        public const int FuelTankIndex = 3;
+
+        public static void InitializeVehicleSettings()
+        {
+            m_FactoryVehicleSettings = new Dictionary<eVehicleType, List<string>>();
+            //format for Fueled (NumOfWheels, maxwheelspressure, FuelType, TankSize)
+            m_FactoryVehicleSettings.Add(eVehicleType.RegularMotorcycle, new List<string> {"2","31","Octan98","6.4"});
+            m_FactoryVehicleSettings.Add(eVehicleType.RegularCar, new List<string> { "5", "33", "Octan95", "46" });
+            m_FactoryVehicleSettings.Add(eVehicleType.RegularTruck, new List<string> { "14", "26", "Soler", "135" });
+            //format for Electric (NumOfWheels, maxwheelspressure,maxTimeInCharge)
+            m_FactoryVehicleSettings.Add(eVehicleType.ElectricMotorcycle, new List<string> { "2", "31", "2.6"});
+            m_FactoryVehicleSettings.Add(eVehicleType.ElectricCar, new List<string> { "5", "33", "5.2" });
+        }
+
+        private static List<string> GetVehicleSettings(eVehicleType i_VehicleType)
+        {
+            return m_FactoryVehicleSettings[i_VehicleType];
+        }
+        public enum eVehicleType
+        {
+            RegularCar = 1,
+            ElectricCar,
+            RegularMotorcycle,
+            ElectricMotorcycle,
+            RegularTruck,
+        }
+
+
+        public static List<string> GetNeededProparties(eVehicleType i_VehicleType)
         {
             Vehicle vehicle = null;
-
+            List<string> needed_Proparties;
             // Check the vehicle type and create the corresponding instance
-            if (i_VehicleEnergyType == "Electric")
+            switch (i_VehicleType)
             {
-                if(i_VehicleType == "Car")
-                {
-                    vehicle = new ElectricCar(i_LicsenseNumber);
-                    vehicle.ParseChangeState(i_VehicleState);
-                }
-                else if(i_VehicleType=="Motorcycle")
-                {
-                    vehicle = new ElectricMotorcycle(i_LicenseNumber);
-                    vehicle.ParseChangeState(i_VehicleState);
-                }
+                case eVehicleType.RegularCar:
+                    needed_Proparties = FuelCar.NeededProparties();
+                    break;
+                case eVehicleType.ElectricCar:
+                    needed_Proparties = FuelCar.NeededProparties();
+                    break;
+                case eVehicleType.RegularMotorcycle:
+                    needed_Proparties = FuelCar.NeededProparties();
+                    break;
+                case eVehicleType.ElectricMotorcycle:
+                    needed_Proparties = FuelCar.NeededProparties();
+                    break;
+                case eVehicleType.RegularTruck:
+                    needed_Proparties = FuelCar.NeededProparties();
+                    break;
+                default:
+                    throw new ArgumentException("invalid car type");
             }
-            if (i_VehicleEnergyType == "Fuel")
-            {
-                if (i_VehicleType == "Car")
-                {
-                    vehicle = new FuelCar(i_LicsenseNumber);
-                    vehicle.ParseChangeState(i_VehicleState);
-                }
-                else if (i_VehicleType == "Motorcycle")
-                {
-                    vehicle = new FuelMotorcycle(i_LicsenseNumber);
-                    vehicle.ParseChangeState(i_VehicleState);
-                }
-                else if(i_VehicleType == "Truck")
-                {
-                    vehicle = new FuelTruck(i_LicsenseNumber);
-                    vehicle.ParseChangeState(i_VehicleState);
-                }
-            }
+            return needed_Proparties;
+        }
 
+
+        public static Vehicle CreateVehicle(string i_LicenseNumber, eVehicleType i_VehicleType, List<string> i_Proparties)
+        {
+            Vehicle vehicle = null;
+            List<string> defaultSetting = m_FactoryVehicleSettings[i_VehicleType];
+            // Check the vehicle type and create the corresponding instance
+            switch (i_VehicleType)
+            {
+                case eVehicleType.RegularCar:
+                    vehicle = new FuelCar(i_LicenseNumber, defaultSetting);
+                    break;
+                case eVehicleType.ElectricCar:
+                    vehicle = new ElectricCar(i_LicenseNumber, defaultSetting);
+                    break;
+                case eVehicleType.RegularMotorcycle:
+                    vehicle = new FuelMotorcycle(i_LicenseNumber, defaultSetting);
+                    break;
+                case eVehicleType.ElectricMotorcycle:
+                    vehicle = new ElectricMotorcycle(i_LicenseNumber, defaultSetting);
+                    break;
+                case eVehicleType.RegularTruck:
+                    vehicle = new FuelTruck(i_LicenseNumber, defaultSetting);
+                    break;
+                default:
+                    throw new ArgumentException("invalid car type");
+            }
+            vehicle.SetProparties(i_Proparties);
             return vehicle;
         }
     }
