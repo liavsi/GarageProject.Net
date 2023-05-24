@@ -12,6 +12,9 @@ namespace Ex03.GarageLogic
         private float m_RemainingEnergyPercentage;
         private List<Wheel> m_Wheels;
 
+        const string MODEL_NAME_STR = "Model Name";
+        const string CURR_WHEEL_PRESSURE = "Current Wheel Pressure";
+        const string CURR_ENERGY_PRECENT= "Current Energy Precentage";
 
         public Vehicle(string i_LicenseNumber, List<string> i_ManufacturProparties)
         {
@@ -33,11 +36,20 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public virtual void SetProparties(Dictionary<string,string> i_PropartiesKeyValue)
+        {
+            // todo - check if valid input - else throw
+            i_PropartiesKeyValue.TryGetValue(MODEL_NAME_STR, out m_ModelName);
+            i_PropartiesKeyValue.TryGetValue(CURR_WHEEL_PRESSURE, out string currentWheelPressurStr);
+            i_PropartiesKeyValue.TryGetValue(CURR_ENERGY_PRECENT, out string currentEnergyPrecentStr);
+
+        }
+
         public static void NeededProparties(ref List<string> io_NeededProparties)
         {
-            io_NeededProparties.Add("Model Name");
-            io_NeededProparties.Add("Current Wheel Pressure");
-            io_NeededProparties.Add("Current Energy Precentage");
+            io_NeededProparties.Add(MODEL_NAME_STR);
+            io_NeededProparties.Add(CURR_WHEEL_PRESSURE);
+            io_NeededProparties.Add(CURR_ENERGY_PRECENT);
         }
 
 

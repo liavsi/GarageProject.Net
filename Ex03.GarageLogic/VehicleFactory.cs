@@ -53,16 +53,16 @@ namespace Ex03.GarageLogic
                     FuelCar.NeededProparties(ref needed_Proparties);
                     break;
                 case eVehicleType.ElectricCar:
-                    needed_Proparties = FuelCar.NeededProparties();
+                    ElectricCar.NeededProparties(ref needed_Proparties);
                     break;
                 case eVehicleType.RegularMotorcycle:
-                    needed_Proparties = FuelCar.NeededProparties();
+                    FuelMotorcycle.NeededProparties(ref needed_Proparties);
                     break;
                 case eVehicleType.ElectricMotorcycle:
-                    needed_Proparties = FuelCar.NeededProparties();
+                    ElectricMotorcycle.NeededProparties(ref needed_Proparties);
                     break;
                 case eVehicleType.RegularTruck:
-                    needed_Proparties = FuelCar.NeededProparties();
+                    FuelTruck.NeededProparties(ref needed_Proparties);
                     break;
                 default:
                     throw new ArgumentException("invalid car type");
