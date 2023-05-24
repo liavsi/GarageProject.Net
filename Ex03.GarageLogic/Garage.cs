@@ -8,6 +8,7 @@ namespace Ex03.GarageLogic
     public class Garage
     {
         private Dictionary<string, Vehicle> m_Vehicles;
+        private Dictionary<eVehicleStatus, List<Vehicle>> m_VehicleStatuses = new Dictionary<eVehicleStatus, List<Vehicle>>();
         //to do: VehicleInfo class - ownerName(string) owenerPhone(string) and carState(enum)
         //private Dictionary<string, VehicleInfo> m_VehicleStatus;
 
