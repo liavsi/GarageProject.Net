@@ -50,8 +50,6 @@
     <Compile Include="ConsoleOutputs.cs" />
     <Compile Include="ElectricMotorcycle.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="GarageManager.cs" />
-    <Compile Include="Validation.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>

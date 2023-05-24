@@ -48,5 +48,12 @@ namespace Ex03.GarageLogic
             io_NeededProparties.Add(DANGEROUS);
             io_NeededProparties.Add(CARGO_VOLUME);
         }
+
+        public override string ToString()
+        {
+            return string.Format(@"
+Dangarous: {0}
+Cargo Volume: {1}", m_IsDangarouse.ToString(),m_CargoVolume);
+        }
     }
 }

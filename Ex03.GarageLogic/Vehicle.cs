@@ -10,7 +10,7 @@ namespace Ex03.GarageLogic
         protected string m_ModelName;
         protected readonly string r_LicenseNumber;
         protected float m_RemainingEnergyPercentage;
-        protected List<Wheel> m_Wheels;
+        protected List<Wheel> m_Wheels = new List<Wheel>();
 
         // NEEDED PROPARTIES BY STRING
         const string MODEL_NAME_STR = "Model Name";
@@ -71,7 +71,16 @@ namespace Ex03.GarageLogic
 
         }
 
+        public override string ToString()
+        {
+            string vehicleString = string.Format(
+           @"License Number: {0}
+Model: {1}
+Tires specifications:{2}
+Energy Percentage: {3:0.00}%", r_LicenseNumber, m_ModelName, m_Wheels[0].ToString(), m_RemainingEnergyPercentage);
 
+            return vehicleString;
+        }
         public static void NeededProparties(ref List<string> io_NeededProparties)
         {
             foreach(string PropartyName in r_PropartyNames)
@@ -80,6 +89,16 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public void InflateWheelsToMax()
+        {
+            foreach(Wheel wheel in m_Wheels)
+            {
+                if(wheel != null)
+                {
+                    wheel.InflateWheel();
+                }
+            }
+        }
         public abstract eVehicleType GetVehicleType();
 
     }

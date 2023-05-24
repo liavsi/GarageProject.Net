@@ -5,14 +5,6 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public enum eFuelType
-    {
-        Soler,
-        Octan95,
-        Octan96,
-        Octan98
-    }
-
     internal abstract class FuelVehicle : Vehicle
     {
         protected eFuelType m_FuelType;
@@ -43,7 +35,7 @@ namespace Ex03.GarageLogic
 
         public override eVehicleType GetVehicleType()
         {
-            return eVehicleType.RegularCar;
+            return eVehicleType.FuelCar;
         }
         public void Refuel(eFuelType i_FuelType, float i_FuelAmount)
         {
@@ -62,6 +54,14 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException();
             }
+        }
+        public override string ToString()
+        {
+            string FuelString = base.ToString() + string.Format(@"Engine: Fuel
+FuelType: {0}
+Fuel Tank Capacity: {1}
+Current Liters Remain: {2}", m_FuelType, m_FuelTankCapacity, m_CurrentFuelLevel);
+            return FuelString;
         }
     }
 }

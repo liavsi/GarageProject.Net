@@ -31,7 +31,16 @@ namespace Ex03.GarageLogic
             Vehicle.NeededProparties(ref io_NeededProparties); 
         }
 
-
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(base.ToString());
+            string electricString = string.Format(@"Engine: Electric
+Max Battery Life: {0}
+Current Hours Remain: {1}", m_MaxCharge, m_CurrentEnergy);
+            stringBuilder.Append(electricString);
+            return stringBuilder.ToString();
+        }
 
         public void ChargeBattary(float i_HoursToAdd)
         {

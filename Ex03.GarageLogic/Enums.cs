@@ -7,24 +7,24 @@ namespace Ex03.GarageLogic
 {
     public enum eVehicleStatus
     {
-        UNDER_REPAIR =1,
-        REPAIRED,
-        PAIED
+        InRepair =1,
+        Repaired,
+        Paid
     }
     public enum eFuelType
     {
-        OCTANE95 = 1,
-        OCTANE96,
-        OCTANE98,
-        SOLER
+        Octan95 = 1,
+        Octan96,
+        Octan98,
+        Soler
     }
 
-    public enum eColor
+    public enum eCarColor
     {
-        RED = 1,
-        BLUE,
-        BLACK,
-        GRAY
+        White = 1,
+        Black,
+        Yellow,
+        Red
     }
     public enum eLicenseType
     {
@@ -34,19 +34,13 @@ namespace Ex03.GarageLogic
         B
     }
 
-    public enum eNumOfDoors
-    {
-        TWO = 2,
-        THREE,
-        FOUR,
-        FIVE
-    }
+
     public enum eVehicleType
     {
-        RegularCar = 1,
+        FuelCar = 1,
         ElectricCar,
-        RegularMotorcycle,
+        FuelMotorcycle,
         ElectricMotorcycle,
-        RegularTruck,
+        FuelTruck,
     }
 }

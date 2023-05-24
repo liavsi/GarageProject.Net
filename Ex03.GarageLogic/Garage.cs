@@ -8,8 +8,9 @@ namespace Ex03.GarageLogic
     public class Garage
     {
         private Dictionary<string, Vehicle> m_Vehicles;
+        private Dictionary<eVehicleStatus, List<Vehicle>> m_VehicleStatuses = new Dictionary<eVehicleStatus, List<Vehicle>>();
         //to do: VehicleInfo class - ownerName(string) owenerPhone(string) and carState(enum)
-        private Dictionary<string, VehicleInfo> m_VehicleStatus;
+        //private Dictionary<string, VehicleInfo> m_VehicleStatus;
 
         public Garage()
         {
@@ -19,8 +20,7 @@ namespace Ex03.GarageLogic
 
         public bool TryEnterVehicleByLicense(string i_License)
         {
-            bool isEntered = m_Vehicles[i_License] != null;
-
+            bool isEntered =m_Vehicles.ContainsKey(i_License);
             if (isEntered)
             { 
                 // MoveToRepair(i_License); 
@@ -54,16 +54,72 @@ namespace Ex03.GarageLogic
         {
             VehicleFactory.UpdateVehicleState(i_vehicle,  i_VehicleType, i_PropartiesKeyValue);
         }
-         public void MoveToRepair(ref Vehicle io_vehicle)
+
+        public void ChargeVehicle(string i_LicenseNumber, float i_HoursToAdd)
         {
-            
-        }
-        public void GetAllLicenseNumbers()
-        {
-            foreach (string key in m_Vehicles.Keys)
+            if (m_Vehicles.ContainsKey(i_LicenseNumber))
             {
-                Console.WriteLine(key);
+                Vehicle vehicle  = m_Vehicles[i_LicenseNumber];
+                if(vehicle is ElectricVehicle)
+                {
+                    (vehicle as ElectricVehicle).ChargeBattary(i_HoursToAdd);
+                }
+                throw new ArgumentException(i_LicenseNumber);
+            }
+            else
+            {
+                throw new ValueOutOfRangeException();
             }
         }
+
+        public void ReFuelVehicle(string i_LicenseNumber, eFuelType i_FuelType, float i_LitersToAdd)
+        {
+            if (m_Vehicles.ContainsKey(i_LicenseNumber))
+            {
+                Vehicle vehicle = m_Vehicles[i_LicenseNumber];
+                if (vehicle is FuelVehicle)
+                {
+                    (vehicle as FuelVehicle).Refuel(i_FuelType, i_LitersToAdd);
+                }
+                else
+                {
+                    throw new ArgumentException(i_LicenseNumber);
+                }
+            }
+            else
+            {
+                throw new ValueOutOfRangeException();
+            }
+        }
+
+        public void InflateWheelsToMax(string i_LicenseNumber)
+        {
+            if(m_Vehicles.ContainsKey(i_LicenseNumber))
+            {
+                Vehicle vehicle = m_Vehicles[i_LicenseNumber];
+                vehicle.InflateWheelsToMax();
+            }
+            else
+            {
+                throw new ArgumentException(i_LicenseNumber);
+            }
+
+        }
+
+        public string GetVehicleAsString(string i_LicenseNumber)
+        {
+            string vehicleString = "";
+            if (m_Vehicles.ContainsKey(i_LicenseNumber))
+            {
+                Vehicle vehicle = m_Vehicles[i_LicenseNumber];
+                vehicleString += vehicle.ToString();
+            }
+            else
+            {
+                throw new ValueOutOfRangeException();
+            }
+            return vehicleString;
+        }
+
     }
 }

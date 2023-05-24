@@ -35,6 +35,14 @@ namespace Ex03.GarageLogic
             return eVehicleType.ElectricCar;
         }
 
+        public override string ToString()
+        {
+            string electricCarString = m_Car.ToString();
+            StringBuilder sb = new StringBuilder();
+            sb.Append(base.ToString());
+            sb.Append(electricCarString);
+            return sb.ToString();
+        }
 
     }
 }
