@@ -204,7 +204,8 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to present a vehicles' information");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            m_Garage.ShowVehicleInfo(licenseNumber);
+            string vehicleAsString = m_Garage.GetVehicleAsString(licenseNumber);
+            Console.WriteLine(vehicleAsString);
         }
     }
 }

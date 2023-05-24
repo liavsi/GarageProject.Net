@@ -105,7 +105,7 @@ namespace Ex03.GarageLogic
 
         }
 
-        public string GetCarAsString(string i_LicenseNumber)
+        public string GetVehicleAsString(string i_LicenseNumber)
         {
             string vehicleString = "";
             if (m_Vehicles.ContainsKey(i_LicenseNumber))
