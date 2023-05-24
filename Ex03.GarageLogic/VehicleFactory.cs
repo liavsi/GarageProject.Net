@@ -7,6 +7,7 @@ namespace Ex03.GarageLogic
 {
     internal class VehicleFactory
     {
+
         public static Vehicle CreateVehicle(string i_LicsenseNumber, string i_VehicleEnergyType, string i_VehicleType, string i_VehicleState)
         {
             Vehicle vehicle = null;
