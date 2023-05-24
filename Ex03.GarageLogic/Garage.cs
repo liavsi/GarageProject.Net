@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
             m_Vehicles = new Dictionary<string, Vehicle>();
         }
 
-        public bool TryEnterCarByLicense(string i_License)
+        public bool TryEnterVehicleByLicense(string i_License)
         {
             bool isEntered =m_Vehicles.ContainsKey(i_License);
             if (isEntered)
