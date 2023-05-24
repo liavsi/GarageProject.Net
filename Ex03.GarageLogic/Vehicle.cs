@@ -80,6 +80,16 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public void InflateWheelsToMax()
+        {
+            foreach(Wheel wheel in m_Wheels)
+            {
+                if(wheel != null)
+                {
+                    wheel.InflateWheel();
+                }
+            }
+        }
         public abstract eVehicleType GetVehicleType();
 
     }

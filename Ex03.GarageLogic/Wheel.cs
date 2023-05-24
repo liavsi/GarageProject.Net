@@ -30,5 +30,9 @@ namespace Ex03.GarageLogic
                 throw new ValueOutOfRangeException();
             }
         }
+        public void InflateWheel()
+        {
+            m_CurrentAirPressure = m_MaxAirPressure;
+        }
     }
 }

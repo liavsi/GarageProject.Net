@@ -174,7 +174,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to inflate the tires to the maximum capacity");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            m_Garage.InflateTiresToMaxCapacity(licenseNumber);
+            m_Garage.InflateWheelsToMax(licenseNumber);
         }
         public void ReFuelVehicle()
         {

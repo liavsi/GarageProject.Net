@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
     {
         private Dictionary<string, Vehicle> m_Vehicles;
         //to do: VehicleInfo class - ownerName(string) owenerPhone(string) and carState(enum)
-        private Dictionary<string, VehicleInfo> m_VehicleStatus;
+        //private Dictionary<string, VehicleInfo> m_VehicleStatus;
 
         public Garage()
         {
@@ -82,6 +82,19 @@ namespace Ex03.GarageLogic
                 }
             }
             return isFueledVehicle;
+        }
+
+        public bool InflateWheelsToMax(string i_LicenseNumber)
+        {
+            bool isInflated = false;
+            if(m_Vehicles.ContainsKey(i_LicenseNumber))
+            {
+                Vehicle vehicle = m_Vehicles[i_LicenseNumber];
+                vehicle.InflateWheelsToMax();
+                isInflated = true;
+            }
+
+            return isInflated;
         }
 
     }
