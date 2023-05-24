@@ -71,6 +71,7 @@ namespace Ex03.GarageLogic
 
         }
 
+
         public static void NeededProparties(ref List<string> io_NeededProparties)
         {
             foreach(string PropartyName in r_PropartyNames)

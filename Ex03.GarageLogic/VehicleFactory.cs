@@ -98,5 +98,6 @@ namespace Ex03.GarageLogic
             vehicle.SetProparties(i_PropartiesKeyValue);
             return vehicle;
         }
+
     }
 }
