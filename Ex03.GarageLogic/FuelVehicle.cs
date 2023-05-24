@@ -41,6 +41,10 @@ namespace Ex03.GarageLogic
             Vehicle.NeededProparties(ref io_NeededProparties);
         }
 
+        public override eVehicleType GetVehicleType()
+        {
+            return eVehicleType.RegularCar;
+        }
         public void Refuel(eFuelType i_FuelType, float i_FuelAmount)
         {
             if (m_FuelType == i_FuelType)

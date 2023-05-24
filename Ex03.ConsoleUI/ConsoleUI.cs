@@ -123,17 +123,24 @@ namespace Ex03.ConsoleUI
             if (int.TryParse(Console.ReadLine(), out choice) && Enum.IsDefined(typeof(eVehicleType), choice))
             {
                 eVehicleType vehicleType = (eVehicleType)choice;
-                List<string> Proparties = m_Garage.GetNeededProparties(vehicleType);
-                Dictionary<string, string> PropartiesKeyValue = new Dictionary<string, string>();
-                foreach (string proparty in Proparties)
-                {
-                    Console.WriteLine("Please enter {0}", proparty);
-                    string input = Console.ReadLine();
-                    PropartiesKeyValue.Add(input, proparty);
-                }
+                Dictionary<string, string> PropartiesKeyValue = getPropartiesFromUser(vehicleType);
                 m_Garage.CreateVehicle(i_LicenseNumber, vehicleType, PropartiesKeyValue);
             }
         }
+
+        private Dictionary<string,string> getPropartiesFromUser(eVehicleType i_VehicleType)
+        {
+            List<string> Proparties = m_Garage.GetNeededProparties(i_VehicleType);
+            Dictionary<string, string> PropartiesKeyValue = new Dictionary<string, string>();
+            foreach (string proparty in Proparties)
+            {
+                Console.WriteLine("Please enter {0}", proparty);
+                string input = Console.ReadLine();
+                PropartiesKeyValue.Add(input, proparty);
+            }
+            return PropartiesKeyValue;
+        }
+
         private void GetLicenseNumbersInGarage()
         {
             Console.WriteLine("You chose to present all the license numbers in the garage");
@@ -147,11 +154,10 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to change a vehicles' status");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            m_Garage.TryEnterCarByLicense(licenseNumber);
-            Console.WriteLine("Please enter the vehicles' new status:");
-            vehicleStatus = Console.ReadLine();
-            //need to overload to parse or something
-            //m_garage.ChangeVehicleStatus(vehicleStatus); 
+            Vehicle vehicle = m_Garage.GetVehicleByLicense(licenseNumber);
+            eVehicleType vehicleType = vehicle.GetVehicleType();
+            Dictionary<string, string> PropartiesKeyValue = getPropartiesFromUser(vehicleType);
+            m_Garage.UpdateVehicleState(vehicle, vehicleType, PropartiesKeyValue);
         }
         public void InflateTiresToMaxCapacity()
         {

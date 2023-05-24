@@ -28,5 +28,10 @@ namespace Ex03.GarageLogic
             Car.NeededProparties(ref io_NeededProparties);
         }
 
+        public override eVehicleType GetVehicleType()
+        {
+            return eVehicleType.RegularCar;
+        }
+
     }
 }

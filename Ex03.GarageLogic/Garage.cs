@@ -14,16 +14,23 @@ namespace Ex03.GarageLogic
         public Garage()
         {
             VehicleFactory.InitializeVehicleSettings();
+            m_Vehicles = new Dictionary<string, Vehicle>();
         }
 
         public bool TryEnterCarByLicense(string i_License)
         {
-            bool isEntered = m_Vehicles.TryGetValue(i_License, out Vehicle vehicle);
+            bool isEntered = m_Vehicles[i_License] != null;
             if (isEntered)
             { 
                 // MoveToRepair(i_License); 
             }
             return isEntered;
+        }
+
+        public Vehicle GetVehicleByLicense(string i_License)
+        {
+            m_Vehicles.TryGetValue(i_License, out Vehicle vehicle);
+            return vehicle;
         }
 
         public List<string> GetNeededProparties(eVehicleType i_VehicleType)
@@ -41,5 +48,11 @@ namespace Ex03.GarageLogic
             }
             m_Vehicles.Add(i_License, vehicle);
         }
+
+        public void UpdateVehicleState(Vehicle i_vehicle, eVehicleType i_VehicleType, Dictionary<string, string> i_PropartiesKeyValue)
+        {
+            VehicleFactory.UpdateVehicleState(i_vehicle,  i_VehicleType, i_PropartiesKeyValue);
+        }
+
     }
 }

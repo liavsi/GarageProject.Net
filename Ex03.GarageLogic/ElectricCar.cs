@@ -9,8 +9,8 @@ namespace Ex03.GarageLogic
     internal class ElectricCar : ElectricVehicle
     {
 
-        Car m_Car;
-
+        private Car m_Car;
+        private eVehicleType m_VehicleType = eVehicleType.ElectricCar;
         public ElectricCar(string i_LicenseNumber, List<string> i_ManufacturProparties)
             : base(i_LicenseNumber, i_ManufacturProparties)
         {
@@ -28,6 +28,11 @@ namespace Ex03.GarageLogic
             ElectricVehicle.NeededProparties(ref io_NeededProparties);
             Car.NeededProparties(ref io_NeededProparties);
 
+        }
+
+        public override eVehicleType GetVehicleType()
+        {
+            return eVehicleType.ElectricCar;
         }
 
 
