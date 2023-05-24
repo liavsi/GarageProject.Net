@@ -96,18 +96,26 @@ namespace Ex03.ConsoleUI
         private void InlistNewVehicle()
         {
             string licenseNumber;
-
-            Console.WriteLine("You chose to inlist a new vehicle");
-            Console.WriteLine("Please enter the vehicles' license number:");
-            licenseNumber = Console.ReadLine();
-            if(m_Garage.TryEnterCarByLicense(licenseNumber))
+            try
             {
-                Console.WriteLine("This car is already in our garage, and now in Repair");
+                Console.WriteLine("You chose to inlist a new vehicle");
+                Console.WriteLine("Please enter the vehicles' license number:");
+                licenseNumber = Console.ReadLine();
+                Validation.IsValidLicenseNumber(licenseNumber);
+                if(m_Garage.TryEnterCarByLicense(licenseNumber))
+                {
+                    Console.WriteLine("This car is already in our garage, and now in Repair");
+                }
+                else
+                {
+                    inputNewCar(licenseNumber);
+                }
             }
-            else
+            catch (ArgumentException ex)
             {
-                inputNewCar(licenseNumber);
+                
             }
+            
 
         }
 
@@ -136,7 +144,7 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine("Please enter {0}", proparty);
                 string input = Console.ReadLine();
-                PropartiesKeyValue.Add(input, proparty);
+                PropartiesKeyValue.Add(proparty, input);
             }
             return PropartiesKeyValue;
         }
