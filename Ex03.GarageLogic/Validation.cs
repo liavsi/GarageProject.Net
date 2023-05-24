@@ -8,7 +8,6 @@ namespace Ex03.GarageLogic
     public class Validation
     {
 
-
         public static void IsValidLicenseNumber(string i_NumberStr)
         {
             if(int.TryParse(i_NumberStr,out int number))

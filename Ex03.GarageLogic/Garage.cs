@@ -120,6 +120,7 @@ namespace Ex03.GarageLogic
             }
             return vehicleString;
         }
+
         public void GetAllLicenseNumbers()
         {
             foreach (string key in m_Vehicles.Keys)
@@ -127,5 +128,6 @@ namespace Ex03.GarageLogic
                 Console.WriteLine(key);
             }
         }
+
     }
 }
