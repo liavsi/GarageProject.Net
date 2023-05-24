@@ -7,84 +7,79 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        //private VehicleInfo m_VehicleInfo;
-        private readonly string r_ModelName;
-        private readonly string r_LicenseNumber;
-        private float m_RemainingEnergyPercentage;
-        private List<Wheel> m_Wheels;
+        protected string m_ModelName;
+        protected readonly string r_LicenseNumber;
+        protected float m_RemainingEnergyPercentage;
+        protected List<Wheel> m_Wheels;
 
-        public Vehicle(string i_ModelName, string i_LicenseNumber, float i_RemainingEnergyPercentage, int i_NumOfWheels, float i_MaxWheelPressure, string i_WheelsManufacture)
+        // NEEDED PROPARTIES BY STRING
+        const string MODEL_NAME_STR = "Model Name";
+        const string CURR_WHEEL_PRESSURE = "Current Wheel Pressure";
+        const string WHEEL_MANUFACTURE = "Wheel Manufacture Name";
+        const string CURR_ENERGY_PRECENT = "Current Energy Precentage";
+        private static readonly string[] r_PropartyNames = { MODEL_NAME_STR, CURR_WHEEL_PRESSURE, WHEEL_MANUFACTURE, CURR_ENERGY_PRECENT };
+    
+
+        public Vehicle(string i_LicenseNumber, List<string> i_ManufacturProparties)
         {
-            r_ModelName = i_ModelName;
+            string numOfWheelsStr = i_ManufacturProparties[VehicleFactory.NumOfWheelIndex];
+            string maxWheelPressureStr = i_ManufacturProparties[VehicleFactory.MaxWheelPressureIndex];
             r_LicenseNumber = i_LicenseNumber;
-            m_RemainingEnergyPercentage = i_RemainingEnergyPercentage;
-            m_Wheels = new List<Wheel>(i_NumOfWheels);
-            for (int i = 0; i < i_NumOfWheels; i++)
+            if (int.TryParse(numOfWheelsStr, out int numOfWheels) && int.TryParse(maxWheelPressureStr, out int maxWheelPressure))
             {
-                Wheel wheel = new Wheel(i_WheelsManufacture, i_MaxWheelPressure);
-                m_Wheels.Add(wheel);
-            } 
+                for (int i = 0; i < numOfWheels; i++)
+                {
+                    Wheel wheel = new Wheel(maxWheelPressure);
+                    m_Wheels.Add(wheel);
+                }
+            }
+            else
+            {
+                throw new Exception("bad manufacture settings");
+            }
         }
-        public string ModelName
+
+        public virtual void SetProparties(Dictionary<string,string> i_PropartiesKeyValue)
         {
-            get
+            // todo - check if valid input - else throw
+            if((i_PropartiesKeyValue.TryGetValue(MODEL_NAME_STR, out m_ModelName)) &&
+            (i_PropartiesKeyValue.TryGetValue(CURR_WHEEL_PRESSURE, out string currentWheelPressurStr)) &&
+            (i_PropartiesKeyValue.TryGetValue(CURR_ENERGY_PRECENT, out string currentEnergyPrecentStr)) &&
+            i_PropartiesKeyValue.TryGetValue(WHEEL_MANUFACTURE, out string wheelManufacture))
             {
-                return r_ModelName;
+                if (float.TryParse(currentWheelPressurStr, out float currentWheelPressure))
+                {
+                    foreach (Wheel wheel in m_Wheels)
+                    {
+                        wheel.InflateWheel(currentWheelPressure);
+                        wheel.Manufactur = wheelManufacture;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+                if(float.TryParse(currentEnergyPrecentStr, out float currentEnergyPrecent))
+                {
+                    m_RemainingEnergyPercentage = currentEnergyPrecent;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
             }
+
         }
 
-        public string LicenseNumber
+
+        public static void NeededProparties(ref List<string> io_NeededProparties)
         {
-            get
+            foreach(string PropartyName in r_PropartyNames)
             {
-                return r_LicenseNumber;
+                io_NeededProparties.Add(PropartyName);  
             }
         }
 
-        public List<Wheel> WheelsList
-        {
-            get
-            {
-                return r_WheelsList;
-            }
-        }
-        public VehicleOwner Owner
-        {
-            get
-            {
-                return m_Owner;
-            }
 
-            set
-            {
-                m_Owner = value;
-            }
-        }
-
-        public eVehicleStatus VehicleStatus
-        {
-            get
-            {
-                return m_VehicleStatus;
-            }
-
-            set
-            {
-                m_VehicleStatus = value;
-            }
-        }
-
-        public eVehicleType VehicleType
-        {
-            get
-            {
-                return m_VehicleType;
-            }
-
-            set
-            {
-                m_VehicleType = value;
-            }
-        }
     }
 }

@@ -5,31 +5,24 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    
-    internal class ElectricCar : ElectricVehicle
+    internal class FuelTruck: FuelVehicle
     {
+        private Truck m_Truck;
 
-        Car m_Car;
-
-        public ElectricCar(string i_LicenseNumber, List<string> i_ManufacturProparties)
+        public FuelTruck(string i_LicenseNumber, List<string> i_ManufacturProparties)
             : base(i_LicenseNumber, i_ManufacturProparties)
         {
 
         }
-
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
         {
             base.SetProparties(i_PropartiesKeyValue);
-            m_Car.SetProparties(i_PropartiesKeyValue);
+            m_Truck.SetProparties(i_PropartiesKeyValue);
         }
-
         new public static void NeededProparties(ref List<string> io_NeededProparties)
         {
-            ElectricVehicle.NeededProparties(ref io_NeededProparties);
-            Car.NeededProparties(ref io_NeededProparties);
-
+            FuelVehicle.NeededProparties(ref io_NeededProparties);
+            Truck.NeededProparties(ref io_NeededProparties);
         }
-
-
     }
 }

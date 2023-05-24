@@ -5,24 +5,27 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    enum LicenseType
+    
+    internal class ElectricMotorcycle : ElectricVehicle
     {
-        A1,
-        A2,
-        AA,
-        B1
-    }
-    internal class ElectricMotorcycle : NonFuelVehicle
-    {
-        private readonly int m_EngineVolume;
-        private LicenseType m_LicenseType;
+        private Motorcycle m_Motorcycle;
 
 
-        public ElectricMotorcycle(int i_EngineVolume, LicenseType i_LicenseType, string i_ModelName, string i_LicenseNumber, float i_RemainingEnergyPercentage, int i_NumOfWheels, float i_MaxWheelPressure, string i_WheelsManufacture, float i_MaxEnergy)
-            : base(i_ModelName, i_LicenseNumber, i_RemainingEnergyPercentage, i_NumOfWheels, i_MaxWheelPressure, i_WheelsManufacture, i_MaxEnergy)
+        public ElectricMotorcycle(string i_LicenseNumber, List<string> i_ManufacturProparties)
+            : base(i_LicenseNumber, i_ManufacturProparties)
         {
-            m_EngineVolume = i_EngineVolume;
-            m_LicenseType = i_LicenseType;
+
         }
+        public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
+        {
+            base.SetProparties(i_PropartiesKeyValue);
+            m_Motorcycle.SetProparties(i_PropartiesKeyValue);
+        }
+        new public static void NeededProparties(ref List<string> io_NeededProparties)
+        {
+            ElectricVehicle.NeededProparties(ref io_NeededProparties);
+            Motorcycle.NeededProparties(ref io_NeededProparties);
+        }
+
     }
 }
