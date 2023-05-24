@@ -26,6 +26,9 @@ namespace Ex03.GarageLogic
             ElectricVehicle.NeededProparties(ref io_NeededProparties);
             Motorcycle.NeededProparties(ref io_NeededProparties);
         }
-
+        public override eVehicleType GetVehicleType()
+        {
+            return eVehicleType.ElectricMotorcycle;
+        }
     }
 }

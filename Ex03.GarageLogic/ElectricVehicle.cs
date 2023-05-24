@@ -41,5 +41,8 @@ namespace Ex03.GarageLogic
             }
             m_CurrentEnergy += i_HoursToAdd;
         }
+        public override abstract eVehicleType GetVehicleType();
+        
+        
     }
 }

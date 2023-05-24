@@ -29,6 +29,11 @@ namespace Ex03.GarageLogic
 
         }
 
+        public override eVehicleType GetVehicleType()
+        {
+            return eVehicleType.RegularMotorcycle;
+        }
+
     }
 }
 

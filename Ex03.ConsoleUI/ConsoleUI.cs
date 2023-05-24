@@ -8,42 +8,53 @@ namespace Ex03.ConsoleUI
 {
     internal class ConsoleUI
     {
-        private GarageManager m_Garage = new GarageManager();
-        private Validation m_validation = new Validation();
+
+        private Garage m_Garage = new Garage();
+        public enum eUserSelect
+        {
+            AddNewVehicle = 1,
+            DisplayLicensePlates,
+            ChangeVehicleState,
+            FillAirInWheels,
+            ReFuelVehicle,
+            ChargeVehicle,
+            DisplayCarDetails,
+            Exit
+        }
+
         public void GarageUI()
         {
-            int usersChoice;
             bool isUserUsingSystem = true;
-
             PrintWelcomeScreen();
+
             while (isUserUsingSystem)
             { 
                 PrintMenu();
-                usersChoice = GetUsersChoice();
-                switch (usersChoice)
+                eUserSelect userSelect = GetUsersChoice();
+                switch (userSelect)
                 {
-                    case 1:
+                    case eUserSelect.AddNewVehicle:
                         InlistNewVehicle();
                         break;
-                    case 2:
+                    case eUserSelect.DisplayLicensePlates:
                         GetLicenseNumbersInGarage();
                         break;
-                    case 3:
+                    case eUserSelect.ChangeVehicleState:
                         ChanegeVehicleStatus();
                         break;
-                    case 4:
+                    case eUserSelect.FillAirInWheels:
                         InflateTiresToMaxCapacity();
                         break;
-                    case 5:
-                        FuelVehicle();
+                    case eUserSelect.ReFuelVehicle:
+                        FuelVehicles();
                         break;
-                    case 6:
+                    case eUserSelect.ChargeVehicle:
                         ChargeVehicle();
                         break;
-                    case 7:
+                    case eUserSelect.DisplayCarDetails:
                         GetVehicleInfo();
                         break;
-                    case 8:
+                    case eUserSelect.Exit:
                         Console.WriteLine("Goodbye");
                         isUserUsingSystem = false;
                         break;
@@ -74,20 +85,70 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("7. Present a vehicles' information");
             Console.WriteLine("8. Exit system");
         }
-        private int GetUsersChoice()
+        private eUserSelect GetUsersChoice()
         {
-            string usersChoice = Console.ReadLine();
-            return int.Parse(usersChoice);
+            if (int.TryParse(Console.ReadLine(), out int usersChoice))
+            {
+                // Validation.checkRange(usersChoice, 1, 8);
+            }
+            return (eUserSelect)usersChoice;
         }
         private void InlistNewVehicle()
         {
             string licenseNumber;
+            try
+            {
+                Console.WriteLine("You chose to inlist a new vehicle");
+                Console.WriteLine("Please enter the vehicles' license number:");
+                licenseNumber = Console.ReadLine();
+                Validation.IsValidLicenseNumber(licenseNumber);
+                if(m_Garage.TryEnterCarByLicense(licenseNumber))
+                {
+                    Console.WriteLine("This car is already in our garage, and now in Repair");
+                }
+                else
+                {
+                    inputNewCar(licenseNumber);
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                
+            }
+            
 
-            Console.WriteLine("You chose to inlist a new vehicle");
-            Console.WriteLine("Please enter the vehicles' license number:");
-            licenseNumber = Console.ReadLine();
-            m_Garage.InlistNewVehicle(licenseNumber);
         }
+
+        private void inputNewCar(string i_LicenseNumber)
+        {
+            Console.WriteLine("Please choose a vehicle type:");
+            Console.WriteLine("1. Regular Car");
+            Console.WriteLine("2. Electric Car");
+            Console.WriteLine("3. Regular Motorcycle");
+            Console.WriteLine("4. Electric Motorcycle");
+            Console.WriteLine("5. Regular Truck");
+            int choice;
+            if (int.TryParse(Console.ReadLine(), out choice) && Enum.IsDefined(typeof(eVehicleType), choice))
+            {
+                eVehicleType vehicleType = (eVehicleType)choice;
+                Dictionary<string, string> PropartiesKeyValue = getPropartiesFromUser(vehicleType);
+                m_Garage.CreateVehicle(i_LicenseNumber, vehicleType, PropartiesKeyValue);
+            }
+        }
+
+        private Dictionary<string,string> getPropartiesFromUser(eVehicleType i_VehicleType)
+        {
+            List<string> Proparties = m_Garage.GetNeededProparties(i_VehicleType);
+            Dictionary<string, string> PropartiesKeyValue = new Dictionary<string, string>();
+            foreach (string proparty in Proparties)
+            {
+                Console.WriteLine("Please enter {0}", proparty);
+                string input = Console.ReadLine();
+                PropartiesKeyValue.Add(proparty, input);
+            }
+            return PropartiesKeyValue;
+        }
+
         private void GetLicenseNumbersInGarage()
         {
             Console.WriteLine("You chose to present all the license numbers in the garage");
@@ -101,11 +162,10 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to change a vehicles' status");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            m_Garage.InlistNewVehicle(licenseNumber);
-            Console.WriteLine("Please enter the vehicles' new status:");
-            vehicleStatus = Console.ReadLine();
-            //need to overload to parse or something
-            //m_garage.ChangeVehicleStatus(vehicleStatus); 
+            Vehicle vehicle = m_Garage.GetVehicleByLicense(licenseNumber);
+            eVehicleType vehicleType = vehicle.GetVehicleType();
+            Dictionary<string, string> PropartiesKeyValue = getPropartiesFromUser(vehicleType);
+            m_Garage.UpdateVehicleState(vehicle, vehicleType, PropartiesKeyValue);
         }
         public void InflateTiresToMaxCapacity()
         {

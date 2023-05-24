@@ -24,5 +24,10 @@ namespace Ex03.GarageLogic
             FuelVehicle.NeededProparties(ref io_NeededProparties);
             Truck.NeededProparties(ref io_NeededProparties);
         }
+
+        public override eVehicleType GetVehicleType()
+        {
+            return eVehicleType.RegularTruck;
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    internal class VehicleFactory
+    public class VehicleFactory
     {
 
         private static Dictionary<eVehicleType, List<string>> m_FactoryVehicleSettings;
@@ -28,18 +28,11 @@ namespace Ex03.GarageLogic
             m_FactoryVehicleSettings.Add(eVehicleType.ElectricCar, new List<string> { "5", "33", "5.2" });
         }
 
-        private static List<string> GetVehicleSettings(eVehicleType i_VehicleType)
+        public static List<string> GetVehicleSettings(eVehicleType i_VehicleType)
         {
             return m_FactoryVehicleSettings[i_VehicleType];
         }
-        public enum eVehicleType
-        {
-            RegularCar = 1,
-            ElectricCar,
-            RegularMotorcycle,
-            ElectricMotorcycle,
-            RegularTruck,
-        }
+
 
 
         public static List<string> GetNeededProparties(eVehicleType i_VehicleType)
@@ -97,6 +90,30 @@ namespace Ex03.GarageLogic
             }
             vehicle.SetProparties(i_PropartiesKeyValue);
             return vehicle;
+        }
+
+        public static void UpdateVehicleState(Vehicle i_Vehicle, eVehicleType i_VehicleType, Dictionary<string, string> i_PropartiesKeyValue)
+        {
+            switch (i_VehicleType)
+            {
+                case eVehicleType.RegularCar:
+                    (i_Vehicle as FuelCar).SetProparties(i_PropartiesKeyValue);
+                    break;
+                case eVehicleType.ElectricCar:
+                    (i_Vehicle as ElectricCar).SetProparties(i_PropartiesKeyValue);
+                    break;
+                case eVehicleType.RegularMotorcycle:
+                    (i_Vehicle as FuelCar).SetProparties(i_PropartiesKeyValue);
+                    break;
+                case eVehicleType.ElectricMotorcycle:
+                    (i_Vehicle as ElectricMotorcycle).SetProparties(i_PropartiesKeyValue);
+                    break;
+                case eVehicleType.RegularTruck:
+                    (i_Vehicle as FuelTruck).SetProparties(i_PropartiesKeyValue);
+                    break;
+                default:
+                    throw new ArgumentException("invalid car type");
+            }
         }
 
     }

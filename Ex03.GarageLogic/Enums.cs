@@ -41,4 +41,12 @@ namespace Ex03.GarageLogic
         FOUR,
         FIVE
     }
+    public enum eVehicleType
+    {
+        RegularCar = 1,
+        ElectricCar,
+        RegularMotorcycle,
+        ElectricMotorcycle,
+        RegularTruck,
+    }
 }
