@@ -33,6 +33,13 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public static void NeededProparties(ref List<string> io_NeededProparties)
+        {
+            io_NeededProparties.Add("Model Name");
+            io_NeededProparties.Add("Current Wheel Pressure");
+            io_NeededProparties.Add("Current Energy Precentage");
+        }
+
 
     }
 }

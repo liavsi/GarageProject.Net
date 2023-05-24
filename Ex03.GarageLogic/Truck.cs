@@ -15,5 +15,11 @@ namespace Ex03.GarageLogic
             m_IsDangarouse = i_IsDangarouse;
             m_CargoVolume = i_CargoVolume;
         }
+        
+        public static void NeededProparties(ref List<string> io_NeededProparties)
+        {
+            io_NeededProparties.Add("Dangerous (yes,no)");
+            io_NeededProparties.Add("Cargo Volume");
+        }
     }
 }

@@ -16,6 +16,11 @@ namespace Ex03.GarageLogic
         {
 
         }
+        new public static void NeededProparties(ref List<string> io_NeededProparties)
+        {
+            ElectricVehicle.NeededProparties(ref io_NeededProparties);
+            Motorcycle.NeededProparties(ref io_NeededProparties);
+        }
 
     }
 }

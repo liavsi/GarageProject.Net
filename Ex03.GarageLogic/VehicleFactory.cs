@@ -45,12 +45,12 @@ namespace Ex03.GarageLogic
         public static List<string> GetNeededProparties(eVehicleType i_VehicleType)
         {
             Vehicle vehicle = null;
-            List<string> needed_Proparties;
+            List<string> needed_Proparties = new List<string>();
             // Check the vehicle type and create the corresponding instance
             switch (i_VehicleType)
             {
                 case eVehicleType.RegularCar:
-                    needed_Proparties = FuelCar.NeededProparties();
+                    FuelCar.NeededProparties(ref needed_Proparties);
                     break;
                 case eVehicleType.ElectricCar:
                     needed_Proparties = FuelCar.NeededProparties();
@@ -71,7 +71,7 @@ namespace Ex03.GarageLogic
         }
 
 
-        public static Vehicle CreateVehicle(string i_LicenseNumber, eVehicleType i_VehicleType, List<string> i_Proparties)
+        public static Vehicle CreateVehicle(string i_LicenseNumber, eVehicleType i_VehicleType, Dictionary<string, string> i_Proparties)
         {
             Vehicle vehicle = null;
             List<string> defaultSetting = m_FactoryVehicleSettings[i_VehicleType];

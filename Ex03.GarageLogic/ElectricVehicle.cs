@@ -21,6 +21,11 @@ namespace Ex03.GarageLogic
             }
         }
 
+        new public static void NeededProparties(ref List<string> io_NeededProparties)
+        {
+            Vehicle.NeededProparties(ref io_NeededProparties); 
+        }
+
 
 
         public void ChargeBattary(float i_HoursToAdd)

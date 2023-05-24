@@ -30,6 +30,10 @@ namespace Ex03.GarageLogic
             }
         }
 
+        new public static void NeededProparties(ref List<string> io_NeededProparties) 
+        {
+            Vehicle.NeededProparties(ref io_NeededProparties);
+        }
 
         public void Refuel(eFuelType i_FuelType, float i_FuelAmount)
         {

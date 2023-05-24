@@ -16,5 +16,11 @@ namespace Ex03.GarageLogic
     {
         private readonly int m_EngineVolume;
         private LicenseType m_LicenseType;
+
+        public static void NeededProparties(ref List<string> io_NeededProparties)
+        {
+            io_NeededProparties.Add("License Type");
+            io_NeededProparties.Add("Engine Volume");
+        }
     }
 }

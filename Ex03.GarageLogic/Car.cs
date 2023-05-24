@@ -23,5 +23,11 @@ namespace Ex03.GarageLogic
             m_CarColor = i_CarColor;
             m_NumOfDoors = i_NumOfDoors;
         }
+
+        public static void NeededProparties(ref List<string> io_NeededProparties)
+        {
+            io_NeededProparties.Add("Color");
+            io_NeededProparties.Add("Number Of Doors");
+        }
     }
 }
