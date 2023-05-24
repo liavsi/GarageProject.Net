@@ -47,7 +47,7 @@ namespace Ex03.ConsoleUI
                         InflateTiresToMaxCapacity();
                         break;
                     case eUserSelect.ReFuelVehicle:
-                        FuelVehicles();
+                        FuelVehicle();
                         break;
                     case eUserSelect.ChargeVehicle:
                         ChargeVehicle();
@@ -190,22 +190,21 @@ namespace Ex03.ConsoleUI
             licenseNumber = Console.ReadLine();
             m_Garage.InflateTiresToMaxCapacity(licenseNumber);
         }
-        public void ReuelVehicle()
+        public void FuelVehicls()
         {
             string carInfoToFuel="", currentInput, licenseNumber;
             bool isCorrectInput = false;
-            Vehicle vehicle;
 
             Console.WriteLine("You chose to fuel vehicle");
             Console.WriteLine("Please enter the vehicles' license number:");
             licenseNumber = Console.ReadLine();
-            bool isVehicleExists = m_Garage.TryGetVehicle(licenseNumber, out vehicle);
+            Vehicle vehicle = m_Garage.GetVehicleByLicense(licenseNumber);
 
-            if(isVehicleExists)
+            if(vehicle!=null)
             {
                 if(vehicle is FuelVehicle)
                 {
-
+                    
                 }
             }
             while (!isCorrectInput)

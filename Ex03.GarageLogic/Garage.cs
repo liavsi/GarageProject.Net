@@ -30,8 +30,10 @@ namespace Ex03.GarageLogic
 
         public Vehicle GetVehicleByLicense(string i_License)
         {
-            m_Vehicles.TryGetValue(i_License, out Vehicle vehicle);
+           if(m_Vehicles.TryGetValue(i_License, out Vehicle vehicle))
             return vehicle;
+           else
+                return null;
         }
 
         public List<string> GetNeededProparties(eVehicleType i_VehicleType)

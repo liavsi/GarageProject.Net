@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
         Octan98
     }
 
-    internal abstract class FuelVehicle : Vehicle
+    public abstract class FuelVehicle : Vehicle
     {
         protected eFuelType m_FuelType;
         protected float m_FuelTankCapacity;
@@ -26,7 +26,7 @@ namespace Ex03.GarageLogic
             string fuelTankCapacityStr = i_ManufacturProparties[VehicleFactory.FuelTankIndex];
             if (!(Enum.TryParse<eFuelType>(fuelTypeStr, out m_FuelType) && float.TryParse(fuelTankCapacityStr,out m_FuelTankCapacity)))
             {
-                throw new Exception("coudnt read");
+                throw new Exception("couldn't read");
             }
         }
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
