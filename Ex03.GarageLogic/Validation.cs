@@ -7,13 +7,7 @@ namespace Ex03.GarageLogic
 {
     public class Validation
     {
-        public static void ValidFuelVehicle(Vehicle i_Vehicle)
-        {
-            if (!(i_Vehicle.Engine is FuelEngine))
-            {
-                throw new ArgumentException("The vehicle is not fuel based");
-            }
-        }
+
 
         public static void IsValidLicenseNumber(string i_NumberStr)
         {
@@ -29,9 +23,6 @@ namespace Ex03.GarageLogic
                 throw new FormatException("the number is not a number");
             }
         }
-
-
-
     }
     
 }
