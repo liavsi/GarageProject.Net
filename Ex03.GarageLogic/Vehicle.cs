@@ -7,14 +7,18 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private string m_ModelName;
-        private readonly string r_LicenseNumber;
-        private float m_RemainingEnergyPercentage;
-        private List<Wheel> m_Wheels;
+        protected string m_ModelName;
+        protected readonly string r_LicenseNumber;
+        protected float m_RemainingEnergyPercentage;
+        protected List<Wheel> m_Wheels;
 
+        // NEEDED PROPARTIES BY STRING
         const string MODEL_NAME_STR = "Model Name";
         const string CURR_WHEEL_PRESSURE = "Current Wheel Pressure";
-        const string CURR_ENERGY_PRECENT= "Current Energy Precentage";
+        const string WHEEL_MANUFACTURE = "Wheel Manufacture Name";
+        const string CURR_ENERGY_PRECENT = "Current Energy Precentage";
+        private static readonly string[] r_PropartyNames = { MODEL_NAME_STR, CURR_WHEEL_PRESSURE, WHEEL_MANUFACTURE, CURR_ENERGY_PRECENT };
+    
 
         public Vehicle(string i_LicenseNumber, List<string> i_ManufacturProparties)
         {
@@ -25,9 +29,8 @@ namespace Ex03.GarageLogic
             {
                 for (int i = 0; i < numOfWheels; i++)
                 {
-                    // todo
-                    //Wheel wheel = new Wheel(maxWheelPressure);
-                    //m_Wheels.Add(wheel);
+                    Wheel wheel = new Wheel(maxWheelPressure);
+                    m_Wheels.Add(wheel);
                 }
             }
             else
@@ -39,17 +42,41 @@ namespace Ex03.GarageLogic
         public virtual void SetProparties(Dictionary<string,string> i_PropartiesKeyValue)
         {
             // todo - check if valid input - else throw
-            i_PropartiesKeyValue.TryGetValue(MODEL_NAME_STR, out m_ModelName);
-            i_PropartiesKeyValue.TryGetValue(CURR_WHEEL_PRESSURE, out string currentWheelPressurStr);
-            i_PropartiesKeyValue.TryGetValue(CURR_ENERGY_PRECENT, out string currentEnergyPrecentStr);
+            if((i_PropartiesKeyValue.TryGetValue(MODEL_NAME_STR, out m_ModelName)) &&
+            (i_PropartiesKeyValue.TryGetValue(CURR_WHEEL_PRESSURE, out string currentWheelPressurStr)) &&
+            (i_PropartiesKeyValue.TryGetValue(CURR_ENERGY_PRECENT, out string currentEnergyPrecentStr)) &&
+            i_PropartiesKeyValue.TryGetValue(WHEEL_MANUFACTURE, out string wheelManufacture))
+            {
+                if (float.TryParse(currentWheelPressurStr, out float currentWheelPressure))
+                {
+                    foreach (Wheel wheel in m_Wheels)
+                    {
+                        wheel.InflateWheel(currentWheelPressure);
+                        wheel.Manufactur = wheelManufacture;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+                if(float.TryParse(currentEnergyPrecentStr, out float currentEnergyPrecent))
+                {
+                    m_RemainingEnergyPercentage = currentEnergyPrecent;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
 
         }
 
         public static void NeededProparties(ref List<string> io_NeededProparties)
         {
-            io_NeededProparties.Add(MODEL_NAME_STR);
-            io_NeededProparties.Add(CURR_WHEEL_PRESSURE);
-            io_NeededProparties.Add(CURR_ENERGY_PRECENT);
+            foreach(string PropartyName in r_PropartyNames)
+            {
+                io_NeededProparties.Add(PropartyName);  
+            }
         }
 
 

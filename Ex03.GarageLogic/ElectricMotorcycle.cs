@@ -16,6 +16,11 @@ namespace Ex03.GarageLogic
         {
 
         }
+        public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
+        {
+            base.SetProparties(i_PropartiesKeyValue);
+            m_Motorcycle.SetProparties(i_PropartiesKeyValue);
+        }
         new public static void NeededProparties(ref List<string> io_NeededProparties)
         {
             ElectricVehicle.NeededProparties(ref io_NeededProparties);

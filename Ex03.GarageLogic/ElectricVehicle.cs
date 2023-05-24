@@ -20,7 +20,12 @@ namespace Ex03.GarageLogic
                 throw new Exception("coudnt read");
             }
         }
+        public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
+        {
+            base.SetProparties(i_PropartiesKeyValue);
+            m_CurrentEnergy = m_MaxCharge * m_RemainingEnergyPercentage;
 
+        }
         new public static void NeededProparties(ref List<string> io_NeededProparties)
         {
             Vehicle.NeededProparties(ref io_NeededProparties); 

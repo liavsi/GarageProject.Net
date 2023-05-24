@@ -15,9 +15,9 @@ namespace Ex03.GarageLogic
 
     internal abstract class FuelVehicle : Vehicle
     {
-        private eFuelType m_FuelType;
-        private float m_FuelTankCapacity;
-        private float m_CurrentFuelLevel;
+        protected eFuelType m_FuelType;
+        protected float m_FuelTankCapacity;
+        protected float m_CurrentFuelLevel;
 
         public FuelVehicle(string i_LicenseNumber, List<string> i_ManufacturProparties)
             : base(i_LicenseNumber, i_ManufacturProparties)
@@ -28,6 +28,12 @@ namespace Ex03.GarageLogic
             {
                 throw new Exception("coudnt read");
             }
+        }
+        public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
+        {
+            base.SetProparties(i_PropartiesKeyValue);
+            m_CurrentFuelLevel = m_FuelTankCapacity * m_RemainingEnergyPercentage;
+
         }
 
         new public static void NeededProparties(ref List<string> io_NeededProparties) 
