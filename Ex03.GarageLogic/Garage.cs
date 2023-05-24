@@ -54,5 +54,35 @@ namespace Ex03.GarageLogic
             VehicleFactory.UpdateVehicleState(i_vehicle,  i_VehicleType, i_PropartiesKeyValue);
         }
 
+        public bool ChargeVehicle(string i_LicenseNumber, float i_HoursToAdd)
+        {
+            bool isElectricCar = false;
+            if (m_Vehicles.ContainsKey(i_LicenseNumber))
+            {
+                Vehicle vehicle  = m_Vehicles[i_LicenseNumber];
+                if(vehicle is ElectricVehicle)
+                {
+                    (vehicle as ElectricVehicle).ChargeBattary(i_HoursToAdd);
+                    isElectricCar = true;
+                }
+            }
+            return isElectricCar;
+        }
+
+        public bool ReFuelVehicle(string i_LicenseNumber, eFuelType i_FuelType, float i_LitersToAdd)
+        {
+            bool isFueledVehicle = false;
+            if (m_Vehicles.ContainsKey(i_LicenseNumber))
+            {
+                Vehicle vehicle = m_Vehicles[i_LicenseNumber];
+                if (vehicle is FuelVehicle)
+                {
+                    (vehicle as FuelVehicle).Refuel(i_FuelType, i_LitersToAdd);
+                    isFueledVehicle = true;
+                }
+            }
+            return isFueledVehicle;
+        }
+
     }
 }

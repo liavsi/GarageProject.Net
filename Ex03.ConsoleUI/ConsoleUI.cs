@@ -46,7 +46,7 @@ namespace Ex03.ConsoleUI
                         InflateTiresToMaxCapacity();
                         break;
                     case eUserSelect.ReFuelVehicle:
-                        FuelVehicles();
+                        ReFuelVehicles();
                         break;
                     case eUserSelect.ChargeVehicle:
                         ChargeVehicle();
@@ -176,58 +176,32 @@ namespace Ex03.ConsoleUI
             licenseNumber = Console.ReadLine();
             m_Garage.InflateTiresToMaxCapacity(licenseNumber);
         }
-        public void ReuelVehicle()
+        public void ReFuelVehicle()
         {
-            string carInfoToFuel="", currentInput, licenseNumber;
-            bool isCorrectInput = false;
-            Vehicle vehicle;
-
-            Console.WriteLine("You chose to fuel vehicle");
-            Console.WriteLine("Please enter the vehicles' license number:");
-            licenseNumber = Console.ReadLine();
-            bool isVehicleExists = m_Garage.TryGetVehicle(licenseNumber, out vehicle);
-
-            if(isVehicleExists)
+            Console.WriteLine("You chose to ReFuel vehicle");
+            Console.WriteLine("Please enter the vehicles' license number Gas type and Liters:");
+            string licenseNumber = Console.ReadLine();
+            Enum.TryParse<eFuelType>(Console.ReadLine(),out eFuelType fuelType);
+            float LitersToAdd = float.Parse(Console.ReadLine());
+            if (!m_Garage.ReFuelVehicle(licenseNumber, fuelType, LitersToAdd))
             {
-                if(vehicle is FuelVehicle)
-                {
+                throw new ArgumentException("This License Number is not of an electric car in our garage");
+            }
 
-                }
-            }
-            while (!isCorrectInput)
-            {
-                try
-                {
-                    
-                    isCorrectInput = true; // Break out of the loop if input is valid
-                
-                }
-            }
-            carInfoToFuel += currentInput;
-                Console.WriteLine("Please enter the type of fuel:");
-                currentInput = Console.ReadLine();
-                carInfoToFuel += currentInput;
-                Console.WriteLine("Please enter the amount of fuel:");
-                currentInput = Console.ReadLine();
-                carInfoToFuel += currentInput;
-                m_garage.FuelVehicle(carInfoToFuel);
-                
-                catch (ValidationException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("Please try again:");
-                }
-            
-            
+
         }
         public void ChargeVehicle()
         {
-            string carInfoToCharge;
 
             Console.WriteLine("You chose to charge vehicle");
             Console.WriteLine("Please enter the vehicles' license number and how many minutes to charge:");
-            carInfoToCharge = Console.ReadLine();
-            m_garage.ChargeVehicle(carInfoToCharge);
+            string licenseNumber = Console.ReadLine();
+            float hoursToAdd = float.Parse(Console.ReadLine());
+            if(!m_Garage.ChargeVehicle(licenseNumber, hoursToAdd))
+            {
+                throw new ArgumentException("This License Number is not of an electric car in our garage");
+            }
+
         }
         public void GetVehicleInfo()
         {
