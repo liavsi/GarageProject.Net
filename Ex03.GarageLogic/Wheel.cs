@@ -40,7 +40,8 @@ namespace Ex03.GarageLogic
             string wheelString = string.Format(@"Wheel:
 Manufacture: {0}
 Max Air Pressure: {1}
-Current Air Pressure", m_Manufactur, m_MaxAirPressure, m_CurrentAirPressure);
+Current Air Pressure{2}
+", m_Manufactur, m_MaxAirPressure, m_CurrentAirPressure);
             return wheelString;
         }
     }

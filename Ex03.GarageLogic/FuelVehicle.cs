@@ -35,7 +35,7 @@ namespace Ex03.GarageLogic
 
         public override eVehicleType GetVehicleType()
         {
-            return eVehicleType.RegularCar;
+            return eVehicleType.FuelCar;
         }
         public void Refuel(eFuelType i_FuelType, float i_FuelAmount)
         {

@@ -101,7 +101,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("You chose to inlist a new vehicle");
                 Console.WriteLine("Please enter the vehicles' license number:");
                 licenseNumber = Console.ReadLine();
-                Validation.IsValidLicenseNumber(licenseNumber);
+                //Validation.IsValidLicenseNumber(licenseNumber);
                 if(m_Garage.TryEnterCarByLicense(licenseNumber))
                 {
                     Console.WriteLine("This car is already in our garage, and now in Repair");

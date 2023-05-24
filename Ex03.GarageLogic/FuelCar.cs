@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
         public FuelCar(string i_LicenseNumber, List<string> i_ManufacturProparties)
             : base(i_LicenseNumber, i_ManufacturProparties)
         {
-
+            m_Car = new Car();
         }
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
         {
@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
 
         public override eVehicleType GetVehicleType()
         {
-            return eVehicleType.RegularCar;
+            return eVehicleType.FuelCar;
         }
         public override string ToString()
         {
