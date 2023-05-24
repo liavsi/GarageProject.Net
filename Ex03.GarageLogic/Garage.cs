@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
     {
         private Dictionary<string, Vehicle> m_Vehicles;
         //to do: VehicleInfo class - ownerName(string) owenerPhone(string) and carState(enum)
-        private Dictionary<string, VehicleInfo> m_VehicleStatus;
+        // private Dictionary<string, VehicleInfo> m_VehicleStatus;
 
         public Garage()
         {
@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic
             bool isEntered = m_Vehicles.TryGetValue(i_License, out Vehicle vehicle);
             if (isEntered)
             { 
-                MoveToRepair(i_License); 
+                // MoveToRepair(i_License); 
             }
             return isEntered;
         }
@@ -32,9 +32,9 @@ namespace Ex03.GarageLogic
             return result;
         }
 
-        public void CreateVehicle(string i_License, VehicleFactory.eVehicleType i_VehicleType, List<string> i_Proparties)
+        public void CreateVehicle(string i_License, VehicleFactory.eVehicleType i_VehicleType, Dictionary<string,string> i_PropartiesKeyValue)
         {
-            Vehicle vehicle = VehicleFactory.CreateVehicle(i_License, i_VehicleType, i_Proparties);
+            Vehicle vehicle = VehicleFactory.CreateVehicle(i_License, i_VehicleType, i_PropartiesKeyValue);
             if (vehicle == null)
             {
                 throw new Exception("no car made");
