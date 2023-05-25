@@ -27,7 +27,7 @@ namespace Ex03.GarageLogic
             if (!(Enum.TryParse<eCarColor>(i_PropartiesKeyValue[COLOR], out m_CarColor) &&
             (int.TryParse(i_PropartiesKeyValue[NUMBER_OF_DOORS], out m_NumOfDoors))))
             {
-                throw new ArgumentException();
+                throw new FormatException("couldnt Parse this input");
             }
         }
 

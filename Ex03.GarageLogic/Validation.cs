@@ -7,19 +7,22 @@ namespace Ex03.GarageLogic
 {
     public class Validation
     {
+        const int c_MaxId = 99999999;
+        const int c_MinId = 0;
 
-        public static void IsValidLicenseNumber(string i_NumberStr)
+
+        public static void IsValidIdNumber(string i_NumberStr)
         {
-            if(int.TryParse(i_NumberStr,out int number))
+            if (int.TryParse(i_NumberStr, out int number))
             {
-                if (number < 0)
+                if (number < c_MinId || number > c_MaxId)
                 {
-                    throw new ValueOutOfRangeException(0, 99999999);
-                }  
+                    throw new ValueOutOfRangeException(number, c_MinId, c_MaxId);
+                }
             }
             else
             {
-                throw new FormatException("the number is not a number");
+                throw new FormatException("couldnt parse this input" + i_NumberStr);
             }
         }
     }

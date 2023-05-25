@@ -27,7 +27,7 @@ namespace Ex03.GarageLogic
         {
             if(!(float.TryParse(i_PropartiesKeyValue[CARGO_VOLUME], out m_CargoVolume)))
             {
-                throw new ArgumentException();
+                throw new FormatException("couldnt Parse this input");
             }
             if (i_PropartiesKeyValue.ContainsKey(DANGEROUS))
             {
@@ -40,11 +40,11 @@ namespace Ex03.GarageLogic
                         m_IsDangarouse = true;
                         break;
                     default:
-                        throw new ArgumentException();
+                        throw new FormatException("couldnt Parse this input, expected yes or no");
                 }
             }
             else
-                throw new ArgumentException();
+                throw new ArgumentException("missing info");
         }
 
         public static void NeededProparties(ref List<string> io_NeededProparties)

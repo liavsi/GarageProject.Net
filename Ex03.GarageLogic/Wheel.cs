@@ -27,7 +27,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException();
+                throw new ValueOutOfRangeException(i_airAmount,0f,m_MaxAirPressure-m_CurrentAirPressure);
             }
         }
         public void InflateWheel()
