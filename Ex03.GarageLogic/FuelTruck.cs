@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
         public FuelTruck(string i_LicenseNumber, List<string> i_ManufacturProparties)
             : base(i_LicenseNumber, i_ManufacturProparties)
         {
-
+            m_Truck = new Truck();
         }
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
         {

@@ -24,8 +24,7 @@ namespace Ex03.GarageLogic
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
         {
             base.SetProparties(i_PropartiesKeyValue);
-            m_CurrentFuelLevel = m_FuelTankCapacity * m_RemainingEnergyPercentage;
-
+            m_CurrentFuelLevel = m_FuelTankCapacity * m_RemainingEnergyPercentage* 0.01f;
         }
 
         new public static void NeededProparties(ref List<string> io_NeededProparties) 

@@ -20,6 +20,11 @@ namespace Ex03.GarageLogic
         const string LICENSE_TYPE = "License Type";
         const string ENGINE_VOLUME = "Engine Volume";
 
+        public Motorcycle()
+        {
+
+        }
+
         public void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
         {
             if (!(Enum.TryParse<LicenseType>(i_PropartiesKeyValue[LICENSE_TYPE], out m_LicenseType) &&

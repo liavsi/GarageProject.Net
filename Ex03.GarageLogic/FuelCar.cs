@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     internal class FuelCar : FuelVehicle
     {
 
-        Car m_Car;
+        private Car m_Car;
 
 
 

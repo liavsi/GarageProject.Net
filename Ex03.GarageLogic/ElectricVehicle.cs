@@ -17,14 +17,13 @@ namespace Ex03.GarageLogic
             string maxChargestr = i_ManufacturProparties[VehicleFactory.MaxChargeIndex];
             if (!(float.TryParse(maxChargestr, out m_MaxCharge)))
             {
-                throw new Exception("coudnt read");
+                throw new FormatException(maxChargestr);
             }
         }
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
         {
             base.SetProparties(i_PropartiesKeyValue);
-            m_CurrentEnergy = m_MaxCharge * m_RemainingEnergyPercentage;
-
+            m_CurrentEnergy = m_MaxCharge * m_RemainingEnergyPercentage * 0.01f;
         }
         new public static void NeededProparties(ref List<string> io_NeededProparties)
         {
