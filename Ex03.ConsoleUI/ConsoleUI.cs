@@ -41,7 +41,7 @@ namespace Ex03.ConsoleUI
                         GetLicenseNumbersInGarage();
                         break;
                     case eUserSelect.ChangeVehicleState:
-                        ChanegeVehicleStatus();
+                        ChanegeVehicleStatusInGarage();
                         break;
                     case eUserSelect.FillAirInWheels:
                         InflateTiresToMaxCapacity();
@@ -141,11 +141,10 @@ namespace Ex03.ConsoleUI
                         Console.WriteLine(messageToConsole.PrintInvalidInput);
                     }
                 }
-                catch(ValueOutOfRangeException ex_outOfRange)
+                catch (ValueOutOfRangeException ex_outOfRange)
                 {
                     Console.WriteLine(ex_outOfRange.Message);
                 }
-                    
             }
             
         }
