@@ -92,29 +92,7 @@ namespace Ex03.GarageLogic
             return vehicle;
         }
 
-        public static void UpdateVehicleState(Vehicle i_Vehicle, eVehicleType i_VehicleType, Dictionary<string, string> i_PropartiesKeyValue)
-        {
-            switch (i_VehicleType)
-            {
-                case eVehicleType.FuelCar:
-                    (i_Vehicle as FuelCar).SetProparties(i_PropartiesKeyValue);
-                    break;
-                case eVehicleType.ElectricCar:
-                    (i_Vehicle as ElectricCar).SetProparties(i_PropartiesKeyValue);
-                    break;
-                case eVehicleType.FuelMotorcycle:
-                    (i_Vehicle as FuelCar).SetProparties(i_PropartiesKeyValue);
-                    break;
-                case eVehicleType.ElectricMotorcycle:
-                    (i_Vehicle as ElectricMotorcycle).SetProparties(i_PropartiesKeyValue);
-                    break;
-                case eVehicleType.FuelTruck:
-                    (i_Vehicle as FuelTruck).SetProparties(i_PropartiesKeyValue);
-                    break;
-                default:
-                    throw new ArgumentException("invalid car type");
-            }
-        }
+       
 
     }
 }

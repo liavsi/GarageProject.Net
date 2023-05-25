@@ -69,10 +69,7 @@ namespace Ex03.GarageLogic
             m_VehicleStatuses[eVehicleStatus.InRepair].Add(vehicle);
         }
 
-        public void UpdateVehicleState(Vehicle i_vehicle, eVehicleType i_VehicleType, Dictionary<string, string> i_PropartiesKeyValue)
-        {
-            VehicleFactory.UpdateVehicleState(i_vehicle, i_VehicleType, i_PropartiesKeyValue);
-        }
+
 
         public void ChargeVehicle(string i_LicenseNumber, float i_HoursToAdd)
         {
