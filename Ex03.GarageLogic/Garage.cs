@@ -48,7 +48,11 @@ namespace Ex03.GarageLogic
 
         public Vehicle GetVehicleByLicense(string i_License)
         {
-            m_Vehicles.TryGetValue(i_License, out Vehicle vehicle);
+            if(!m_Vehicles.ContainsKey(i_License))
+            {
+                throw new ArgumentException("no such license in our garage");
+            }
+            Vehicle vehicle = m_Vehicles[i_License];
             return vehicle;
         }
 
@@ -61,10 +65,6 @@ namespace Ex03.GarageLogic
         public void CreateVehicle(string i_License, eVehicleType i_VehicleType, Dictionary<string, string> i_PropartiesKeyValue)
         {
             Vehicle vehicle = VehicleFactory.CreateVehicle(i_License, i_VehicleType, i_PropartiesKeyValue);
-            if (vehicle == null)
-            {
-                throw new Exception("no car made");
-            }
             m_Vehicles.Add(i_License, vehicle);
             m_VehicleStatuses[eVehicleStatus.InRepair].Add(vehicle);
         }
@@ -84,7 +84,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException();
+                throw new ArgumentException("No such License number in Garage");
             }
         }
 
@@ -104,7 +104,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException();
+                throw new ArgumentException("No such License number in Garage");
             }
         }
 

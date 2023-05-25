@@ -36,7 +36,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new Exception("bad manufacture settings");
+                throw new FormatException("couldnt Parse this input" + numOfWheelsStr + "or" + maxWheelPressureStr);
             }
         }
 
@@ -71,21 +71,27 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new FormatException();
+                    throw new FormatException("couldnt Parse this input" + currentWheelPressurStr);
                 }
-                if(float.TryParse(currentEnergyPrecentStr, out float currentEnergyPrecent))
+                if (float.TryParse(currentEnergyPrecentStr, out float currentEnergyPrecent))
                 {
-                    // Validation.IsValidFloatInRange(currentEnergyPrecent, 0f, 100f);
-                    m_RemainingEnergyPercentage = currentEnergyPrecent;
+                    if (currentEnergyPrecent > 0f && currentEnergyPrecent < 100f)
+                    {
+                        m_RemainingEnergyPercentage = currentEnergyPrecent;
+                    }
+                    else
+                    {
+                        throw new ValueOutOfRangeException(currentEnergyPrecent, 0f, 100f);
+                    }    
                 }
                 else
                 {
-                    throw new FormatException();
+                    throw new FormatException("couldnt Parse this input" + currentEnergyPrecentStr);
                 }
             }
             else
             {
-                throw new FormatException();
+                throw new FormatException("couldnt Parse this input");
             }
 
         }

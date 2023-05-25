@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
             if (!(Enum.TryParse<LicenseType>(i_PropartiesKeyValue[LICENSE_TYPE], out m_LicenseType) &&
             (int.TryParse(i_PropartiesKeyValue[ENGINE_VOLUME], out m_EngineVolume))))
             {
-                throw new ArgumentException();
+                throw new FormatException("couldnt Parse this input");
             }
         }
         public static void NeededProparties(ref List<string> io_NeededProparties)

@@ -33,12 +33,11 @@ namespace Ex03.GarageLogic
             if(i_PropartiesKeyValue.TryGetValue(OWNER_NAME, out m_OwenerName)
                 && i_PropartiesKeyValue.TryGetValue(OWNER_PHONE, out m_OwenerPhone))
             {
-                // Validation.isValidNumberInRange(m_OwenerName, Validation.MaxID, Validation.MinID);
-
+                Validation.IsValidIdNumber(m_OwenerPhone);
             }
             else
             {
-                throw new FormatException();
+                throw new FormatException("didnt get needed input");
             }
 
         }
@@ -76,7 +75,7 @@ namespace Ex03.GarageLogic
             } 
             set
             {
-               // Validation.IsValidNumberInRange(value, 1, 9999999);
+                Validation.IsValidIdNumber(value);
                 m_OwenerPhone = value;
             }
         }

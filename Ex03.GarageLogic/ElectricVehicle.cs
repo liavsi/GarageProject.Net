@@ -17,7 +17,7 @@ namespace Ex03.GarageLogic
             string maxChargestr = i_ManufacturProparties[VehicleFactory.MaxChargeIndex];
             if (!(float.TryParse(maxChargestr, out m_MaxCharge)))
             {
-                throw new FormatException(maxChargestr);
+                throw new FormatException("couldnt Parse this input" + maxChargestr);
             }
         }
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
@@ -45,7 +45,7 @@ Current Hours Remain: {1}", m_MaxCharge, m_CurrentEnergy);
         {
             if (m_CurrentEnergy + i_HoursToAdd > m_MaxCharge)
             {
-                throw new ArgumentException("more hours than maximum");
+                throw new ValueOutOfRangeException(i_HoursToAdd, 0f, m_MaxCharge-m_CurrentEnergy);
             }
             m_CurrentEnergy += i_HoursToAdd;
         }

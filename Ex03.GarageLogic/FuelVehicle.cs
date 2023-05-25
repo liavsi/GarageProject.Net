@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
             string fuelTankCapacityStr = i_ManufacturProparties[VehicleFactory.FuelTankIndex];
             if (!(Enum.TryParse<eFuelType>(fuelTypeStr, out m_FuelType) && float.TryParse(fuelTankCapacityStr,out m_FuelTankCapacity)))
             {
-                throw new Exception("coudnt read");
+                throw new FormatException("couldnt Parse this input" + fuelTypeStr +"or" + fuelTankCapacityStr);
             }
         }
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)
@@ -46,12 +46,12 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException();
+                    throw new ValueOutOfRangeException(i_FuelAmount,0f,m_FuelTankCapacity - m_CurrentFuelLevel);
                 }
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("This is not the right fuel type for this vehicle");
             }
         }
         public override string ToString()
