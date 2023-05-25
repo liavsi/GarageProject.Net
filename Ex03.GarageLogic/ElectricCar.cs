@@ -14,7 +14,7 @@ namespace Ex03.GarageLogic
         public ElectricCar(string i_LicenseNumber, List<string> i_ManufacturProparties)
             : base(i_LicenseNumber, i_ManufacturProparties)
         {
-
+            m_Car = new Car();
         }
 
         public override void SetProparties(Dictionary<string, string> i_PropartiesKeyValue)

@@ -41,7 +41,7 @@ namespace Ex03.ConsoleUI
                         GetLicenseNumbersInGarage();
                         break;
                     case eUserSelect.ChangeVehicleState:
-                        ChanegeVehicleStatus();
+                        ChanegeVehicleStatusInGarage();
                         break;
                     case eUserSelect.FillAirInWheels:
                         InflateTiresToMaxCapacity();
@@ -141,11 +141,10 @@ namespace Ex03.ConsoleUI
                         Console.WriteLine(messageToConsole.PrintInvalidInput);
                     }
                 }
-                catch(ValueOutOfRangeException ex_outOfRange)
+                catch (ValueOutOfRangeException ex_outOfRange)
                 {
                     Console.WriteLine(ex_outOfRange.Message);
                 }
-                    
             }
             
         }
@@ -154,12 +153,25 @@ namespace Ex03.ConsoleUI
         {
             List<string> Proparties = m_Garage.GetNeededProparties(i_VehicleType);
             Dictionary<string, string> PropartiesKeyValue = new Dictionary<string, string>();
-            foreach (string proparty in Proparties)
+            bool isValidInput = false;
+            while(!isValidInput)
             {
-                Console.WriteLine("Please enter {0}", proparty);
-                string input = Console.ReadLine();
-                PropartiesKeyValue.Add(proparty, input);
+                try
+                {
+                    foreach (string proparty in Proparties)
+                    {
+                        Console.WriteLine("Please enter {0}", proparty);
+                        string input = Console.ReadLine();
+                        PropartiesKeyValue.Add(proparty, input);
+                    }
+                    isValidInput = true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
+            
             return PropartiesKeyValue;
         }
 
@@ -168,18 +180,27 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("You chose to present all the license numbers in the garage");
             m_Garage.GetAllLicenseNumbers();
         }
-        private void ChanegeVehicleStatus()
+        private void ChanegeVehicleStatusInGarage()
         {
-            string licenseNumber;
-            string vehicleStatus;
+            bool isValidInput = false;
+            while (!isValidInput)
+            {
+                try
+                {
+                    Console.WriteLine("You chose to change a vehicles' status");
+                    Console.WriteLine("Please enter the vehicles' license number:");
+                    string licenseNumber = Console.ReadLine();
+                    Console.WriteLine("Please enter new status for the vehicle: Paid | Repaired | InRepair");
+                    Enum.TryParse<eVehicleStatus>(Console.ReadLine(), out eVehicleStatus vehicleStatus);
+                    m_Garage.ChangeVehicleStatus(licenseNumber, vehicleStatus);
+                    isValidInput = true;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
 
-            Console.WriteLine("You chose to change a vehicles' status");
-            Console.WriteLine("Please enter the vehicles' license number:");
-            licenseNumber = Console.ReadLine();
-            Vehicle vehicle = m_Garage.GetVehicleByLicense(licenseNumber);
-            eVehicleType vehicleType = vehicle.GetVehicleType();
-            Dictionary<string, string> PropartiesKeyValue = getPropartiesFromUser(vehicleType);
-            m_Garage.UpdateVehicleState(vehicle, vehicleType, PropartiesKeyValue);
         }
         public void InflateTiresToMaxCapacity()
         {
@@ -208,7 +229,6 @@ namespace Ex03.ConsoleUI
             string licenseNumber = Console.ReadLine();
             float hoursToAdd = float.Parse(Console.ReadLine());
             m_Garage.ChargeVehicle(licenseNumber, hoursToAdd);
-           
 
         }
         public void GetVehicleInfo()

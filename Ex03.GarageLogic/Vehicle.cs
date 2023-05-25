@@ -11,6 +11,7 @@ namespace Ex03.GarageLogic
         protected readonly string r_LicenseNumber;
         protected float m_RemainingEnergyPercentage;
         protected List<Wheel> m_Wheels = new List<Wheel>();
+        protected VehicleInfo m_Info = new VehicleInfo();
 
         // NEEDED PROPARTIES BY STRING
         const string MODEL_NAME_STR = "Model Name";
@@ -39,9 +40,22 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public eVehicleStatus Status
+        {
+            get
+            {
+                return m_Info.VehicleStatus;
+            }
+            set
+            {
+                m_Info.VehicleStatus = value;
+            }
+        }
+
         public virtual void SetProparties(Dictionary<string,string> i_PropartiesKeyValue)
         {
             // todo - check if valid input - else throw
+            m_Info.SetProparties(i_PropartiesKeyValue);
             if((i_PropartiesKeyValue.TryGetValue(MODEL_NAME_STR, out m_ModelName)) &&
             (i_PropartiesKeyValue.TryGetValue(CURR_WHEEL_PRESSURE, out string currentWheelPressurStr)) &&
             (i_PropartiesKeyValue.TryGetValue(CURR_ENERGY_PRECENT, out string currentEnergyPrecentStr)) &&
@@ -57,16 +71,21 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new FormatException();
                 }
                 if(float.TryParse(currentEnergyPrecentStr, out float currentEnergyPrecent))
                 {
+                    // Validation.IsValidFloatInRange(currentEnergyPrecent, 0f, 100f);
                     m_RemainingEnergyPercentage = currentEnergyPrecent;
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new FormatException();
                 }
+            }
+            else
+            {
+                throw new FormatException();
             }
 
         }
@@ -74,16 +93,20 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             string vehicleString = string.Format(
-           @"License Number: {0}
-Model: {1}
-Tires specifications:{2}
-Energy Percentage: {3:0.00}%", r_LicenseNumber, m_ModelName, m_Wheels[0].ToString(), m_RemainingEnergyPercentage);
+           @"Owener Details:
+{0}
+License Number: {1}
+Model: {2}
+Wheels specifications:
+{3}
+Energy Percentage: {4:0.00}%",m_Info.ToString(), r_LicenseNumber, m_ModelName, m_Wheels[0].ToString(), m_RemainingEnergyPercentage);
 
             return vehicleString;
         }
         public static void NeededProparties(ref List<string> io_NeededProparties)
         {
-            foreach(string PropartyName in r_PropartyNames)
+            VehicleInfo.NeededProparties(ref io_NeededProparties);
+            foreach (string PropartyName in r_PropartyNames)
             {
                 io_NeededProparties.Add(PropartyName);  
             }

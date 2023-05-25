@@ -14,6 +14,10 @@ namespace Ex03.GarageLogic
         const string DANGEROUS = "Dangerous (yes,no)";
         const string CARGO_VOLUME = "Cargo Volume";
 
+        public Truck()
+        {
+
+        }
         public Truck(bool i_IsDangarouse, float i_CargoVolume)
         {
             m_IsDangarouse = i_IsDangarouse;

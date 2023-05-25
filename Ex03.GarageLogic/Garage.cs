@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     public class Garage
     {
         private Dictionary<string, Vehicle> m_Vehicles;
-        private Dictionary<eVehicleStatus, List<Vehicle>> m_VehicleStatuses = new Dictionary<eVehicleStatus, List<Vehicle>>();
+        private Dictionary<eVehicleStatus, List<Vehicle>> m_VehicleStatuses;
         //to do: VehicleInfo class - ownerName(string) owenerPhone(string) and carState(enum)
         //private Dictionary<string, VehicleInfo> m_VehicleStatus;
 
@@ -16,6 +16,10 @@ namespace Ex03.GarageLogic
         {
             VehicleFactory.InitializeVehicleSettings();
             m_Vehicles = new Dictionary<string, Vehicle>();
+            m_VehicleStatuses = new Dictionary<eVehicleStatus, List<Vehicle>>();
+            m_VehicleStatuses.Add(eVehicleStatus.InRepair, new List<Vehicle>());
+            m_VehicleStatuses.Add(eVehicleStatus.Paid, new List<Vehicle>());
+            m_VehicleStatuses.Add(eVehicleStatus.Repaired, new List<Vehicle>());
         }
 
         public bool TryEnterVehicleByLicense(string i_License)
@@ -23,10 +27,24 @@ namespace Ex03.GarageLogic
             bool isEntered = m_Vehicles.ContainsKey(i_License);
             if (isEntered)
             {
-                // MoveToRepair(i_License); 
+                ChangeVehicleStatus(i_License, eVehicleStatus.InRepair); 
             }
             return isEntered;
         }
+
+        public void ChangeVehicleStatus(string i_LicenseNumber, eVehicleStatus i_WantedStatus)
+        {
+            Vehicle vehicle = m_Vehicles[i_LicenseNumber];
+            List<Vehicle> vehiclesWantedStatusList = m_VehicleStatuses[i_WantedStatus];
+            List<Vehicle> currentList = m_VehicleStatuses[vehicle.Status];
+            if(currentList != vehiclesWantedStatusList)
+            {
+                vehicle.Status = i_WantedStatus;
+                currentList.Remove(vehicle);
+                vehiclesWantedStatusList.Add(vehicle);
+            }
+        }
+
 
         public Vehicle GetVehicleByLicense(string i_License)
         {
@@ -48,6 +66,7 @@ namespace Ex03.GarageLogic
                 throw new Exception("no car made");
             }
             m_Vehicles.Add(i_License, vehicle);
+            m_VehicleStatuses[eVehicleStatus.InRepair].Add(vehicle);
         }
 
         public void UpdateVehicleState(Vehicle i_vehicle, eVehicleType i_VehicleType, Dictionary<string, string> i_PropartiesKeyValue)
