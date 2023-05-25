@@ -10,7 +10,6 @@ namespace Ex03.ConsoleUI
     {
 
         private Garage m_Garage = new Garage();
-        Messages messageToConsole = new Messages();
         public enum eUserSelect
         {
             AddNewVehicle = 1,
@@ -20,7 +19,8 @@ namespace Ex03.ConsoleUI
             ReFuelVehicle,
             ChargeVehicle,
             DisplayCarDetails,
-            Exit
+            Exit,
+            BadInput
         }
 
         public void GarageUI()
@@ -59,27 +59,37 @@ namespace Ex03.ConsoleUI
                         Console.WriteLine("Goodbye");
                         isUserUsingSystem = false;
                         break;
-                    default:
-                        Console.WriteLine("Invalid number.");
+                    case eUserSelect.BadInput:
+                        Console.WriteLine(Messages.InvalidInput);
                         break;
                 }
             }
         }
         private void PrintWelcomeScreen()
         {
-            Console.WriteLine(messageToConsole.PrintWelcomeScreen);
+            Console.WriteLine(Messages.WelcomeScreen);
         }
         private void PrintMenu()
         {
-            Console.WriteLine(messageToConsole.PrintMenu);
+            Console.WriteLine(Messages.Menu);
         }
         private eUserSelect GetUsersChoice()
         {
-            if (int.TryParse(Console.ReadLine(), out int usersChoice))
+            eUserSelect usersChoice = eUserSelect.BadInput;
+            try
             {
-                // Validation.checkRange(usersChoice, 1, 8);
+                if (!Enum.TryParse<eUserSelect>(Console.ReadLine(), out usersChoice))
+                {
+                    usersChoice = eUserSelect.BadInput;
+                }
             }
-            return (eUserSelect)usersChoice;
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return usersChoice;
+
+
         }
         private void InlistNewVehicle()
         {
@@ -93,10 +103,10 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine("Please enter the vehicles' license number:");
                     licenseNumber = Console.ReadLine();
-                    Validation.IsValidLicenseNumber(licenseNumber);
+                    Validation.IsValidIdNumber(licenseNumber);
                     if (m_Garage.TryEnterVehicleByLicense(licenseNumber))
                     {
-                        Console.WriteLine(messageToConsole.PrintVehicleIsAlreadyInGarage);
+                        Console.WriteLine(Messages.VehicleIsAlreadyInGarage);
                     }
                     else
                     {
@@ -112,6 +122,10 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine(ex_Argument.Message);
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
 
@@ -124,7 +138,7 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    Console.WriteLine(messageToConsole.PrintVehiclesMenu);
+                    Console.WriteLine(Messages.VehiclesMenu);
                     if (int.TryParse(Console.ReadLine(), out choice) && Enum.IsDefined(typeof(eVehicleType), choice))
                     {
                         if (choice > 5 || choice < 1)
@@ -138,12 +152,16 @@ namespace Ex03.ConsoleUI
                     }
                     else
                     {
-                        Console.WriteLine(messageToConsole.PrintInvalidInput);
+                        Console.WriteLine(Messages.InvalidInput);
                     }
                 }
                 catch (ValueOutOfRangeException ex_outOfRange)
                 {
                     Console.WriteLine(ex_outOfRange.Message);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
             
@@ -199,6 +217,10 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine(e.Message);
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
 
         }
@@ -215,10 +237,18 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("You chose to ReFuel vehicle");
             Console.WriteLine("Please enter the vehicles' license number Gas type and Liters:");
-            string licenseNumber = Console.ReadLine();
-            Enum.TryParse<eFuelType>(Console.ReadLine(),out eFuelType fuelType);
-            float LitersToAdd = float.Parse(Console.ReadLine());
-            m_Garage.ReFuelVehicle(licenseNumber, fuelType, LitersToAdd);
+            try
+            {
+                string licenseNumber = Console.ReadLine();
+                Enum.TryParse<eFuelType>(Console.ReadLine(), out eFuelType fuelType);
+                float LitersToAdd = float.Parse(Console.ReadLine());
+                m_Garage.ReFuelVehicle(licenseNumber, fuelType, LitersToAdd);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
        
         }
         public void ChargeVehicle()
@@ -226,9 +256,17 @@ namespace Ex03.ConsoleUI
 
             Console.WriteLine("You chose to charge vehicle");
             Console.WriteLine("Please enter the vehicles' license number and how many minutes to charge:");
-            string licenseNumber = Console.ReadLine();
-            float hoursToAdd = float.Parse(Console.ReadLine());
-            m_Garage.ChargeVehicle(licenseNumber, hoursToAdd);
+            try
+            {
+                string licenseNumber = Console.ReadLine();
+                float hoursToAdd = float.Parse(Console.ReadLine());
+                m_Garage.ChargeVehicle(licenseNumber, hoursToAdd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
 
         }
         public void GetVehicleInfo()
@@ -237,9 +275,17 @@ namespace Ex03.ConsoleUI
 
             Console.WriteLine("You chose to present a vehicles' information");
             Console.WriteLine("Please enter the vehicles' license number:");
-            licenseNumber = Console.ReadLine();
-            string vehicleAsString = m_Garage.GetVehicleAsString(licenseNumber);
-            Console.WriteLine(vehicleAsString);
+            try
+            {
+                licenseNumber = Console.ReadLine();
+                string vehicleAsString = m_Garage.GetVehicleAsString(licenseNumber);
+                Console.WriteLine(vehicleAsString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
     }
 }

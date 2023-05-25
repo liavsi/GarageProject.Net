@@ -7,12 +7,12 @@ namespace Ex03.ConsoleUI
 {
     internal class Messages
     {
-        private string m_printWelcomeScreen = @"Welcome to Yuval and Liav garage!
+        const string m_WelcomeScreen = @"Welcome to Yuval and Liav garage!
   __________
  /___||__||__\\___
 |________________|
   (O)        (O)";
-        private string m_printMenu = @"How may we assist you today?
+        const string m_Menu = @"How may we assist you today?
 Press the number of the action desired:
 1. Inlist a new vehicle
 2. Present the vehicles license numbers currently at the garage
@@ -22,7 +22,7 @@ Press the number of the action desired:
 6. Charge an electric vehicle
 7. Present a vehicles' information
 8. Exit system";
-        private string m_ChooseTypeOfVehicle = @"Please choose a vehicle type:
+        const string m_ChooseTypeOfVehicle = @"Please choose a vehicle type:
 1. Regular Car
 2. Electric Car
 3. Regular Motorcycle
@@ -30,38 +30,38 @@ Press the number of the action desired:
 5. Regular Truck";
 
 
-        private string m_VehicleAlreadyInGarage = "This vehicle is already in our garage, and now in Repair";
-        private string m_InvalidInput = "The input you have tried to submit is invalid";
-        public string PrintWelcomeScreen
+        const string m_VehicleAlreadyInGarage = "This vehicle is already in our garage, and now in Repair";
+        const string m_InvalidInput = "The input you have tried to submit is invalid";
+        public static string WelcomeScreen
         {
             get
             {
-                return m_printWelcomeScreen;
+                return m_WelcomeScreen;
             }
 
         }
-        public string PrintMenu
+        public static string Menu
         {
             get
             {
-                return m_printMenu;
+                return m_Menu;
             }
         }
-        public string PrintVehicleIsAlreadyInGarage
+        public static string VehicleIsAlreadyInGarage
         {
             get
             {
                 return m_VehicleAlreadyInGarage;
             }
         }
-        public string PrintVehiclesMenu
+        public static string VehiclesMenu
         {
             get
             {
                return m_ChooseTypeOfVehicle;
             }
         }
-        public string PrintInvalidInput
+        public static string InvalidInput
         {
             get
             {
