@@ -148,10 +148,6 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(Messages.VehiclesMenu);
                     if (int.TryParse(Console.ReadLine(), out choice) && Enum.IsDefined(typeof(eVehicleType), choice))
                     {
-                        if (choice > 5 || choice < 1)
-                        {
-                            throw new ValueOutOfRangeException(choice, 1, 5);
-                        }
                         eVehicleType vehicleType = (eVehicleType)choice;
                         Dictionary<string, string> PropartiesKeyValue = getPropartiesFromUser(vehicleType);
                         m_Garage.CreateVehicle(i_LicenseNumber, vehicleType, PropartiesKeyValue);
