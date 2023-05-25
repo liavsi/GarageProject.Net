@@ -14,6 +14,10 @@ namespace Ex03.GarageLogic
         {
 
         }
+        public ValueOutOfRangeException(string message):base(message)
+        {
+
+        }
         public ValueOutOfRangeException(float i_SentValue, float i_MinValue, float i_MaxValue)
             : base(string.Format("Invalid value: {0}. The value has to be in range: {1}-{2}",
                 i_SentValue, i_MinValue, i_MaxValue))

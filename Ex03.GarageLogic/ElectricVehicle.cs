@@ -34,7 +34,8 @@ namespace Ex03.GarageLogic
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append(base.ToString());
-            string electricString = string.Format(@"Engine: Electric
+            string electricString = string.Format(@"
+Engine: Electric
 Max Battery Life: {0}
 Current Hours Remain: {1}", m_MaxCharge, m_CurrentEnergy);
             stringBuilder.Append(electricString);

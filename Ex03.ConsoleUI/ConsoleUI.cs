@@ -26,10 +26,10 @@ namespace Ex03.ConsoleUI
         public void GarageUI()
         {
             bool isUserUsingSystem = true;
-            PrintWelcomeScreen();
-
+            
             while (isUserUsingSystem)
-            { 
+            {
+                PrintWelcomeScreen();
                 PrintMenu();
                 eUserSelect userSelect = GetUsersChoice();
                 switch (userSelect)
@@ -59,7 +59,7 @@ namespace Ex03.ConsoleUI
                         Console.WriteLine("Goodbye");
                         isUserUsingSystem = false;
                         break;
-                    case eUserSelect.BadInput:
+                    default:
                         Console.WriteLine(Messages.InvalidInput);
                         break;
                 }
@@ -146,26 +146,27 @@ namespace Ex03.ConsoleUI
                 try
                 {
                     Console.WriteLine(Messages.VehiclesMenu);
-                    if (int.TryParse(Console.ReadLine(), out choice) && Enum.IsDefined(typeof(eVehicleType), choice))
+                    if (Validation.IsValidNumberChoice(out choice))
                     {
                         eVehicleType vehicleType = (eVehicleType)choice;
                         Dictionary<string, string> PropartiesKeyValue = getPropartiesFromUser(vehicleType);
                         m_Garage.CreateVehicle(i_LicenseNumber, vehicleType, PropartiesKeyValue);
                         isValidNumber = true;
                     }
-                    else
-                    {
-                        Console.WriteLine(Messages.InvalidInput);
-                    }
                 }
                 catch (ValueOutOfRangeException ex_outOfRange)
                 {
                     Console.WriteLine(ex_outOfRange.Message);
                 }
-                catch (Exception e)
+                catch (FormatException e_format)
+                {
+                    Console.WriteLine(e_format.Message);
+                }
+                catch(Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
+                Ex02.ConsoleUtils.Screen.Clear();
             }
             
         }
@@ -175,14 +176,27 @@ namespace Ex03.ConsoleUI
             List<string> Proparties = m_Garage.GetNeededProparties(i_VehicleType);
             Dictionary<string, string> PropartiesKeyValue = new Dictionary<string, string>();
             bool isValidInput = false;
+
             while(!isValidInput)
             {
+                PropartiesKeyValue.Clear();
                 try
                 {
                     foreach (string proparty in Proparties)
                     {
                         Console.WriteLine("Please enter {0}", proparty);
                         string input = Console.ReadLine();
+                        if(proparty == "Color" || proparty == "License Type")
+                        {
+                            input= input.ToLower();
+                        }
+                        else if(proparty == "Engine Volume")
+                        {
+                            if(!(int.TryParse(input, out int engineVolume) && engineVolume>0))
+                            {
+                                throw new ValueOutOfRangeException("engine volume is invalid");
+                            }
+                        }
                         PropartiesKeyValue.Add(proparty, input);
                     }
                     isValidInput = true;
@@ -245,11 +259,22 @@ namespace Ex03.ConsoleUI
         public void ReFuelVehicle()
         {
             Console.WriteLine("You chose to ReFuel vehicle");
-            Console.WriteLine("Please enter the vehicles' license number Gas type and Liters:");
+             
             try
             {
+                Console.WriteLine("Please enter the vehicles' license number:");
                 string licenseNumber = Console.ReadLine();
-                Enum.TryParse<eFuelType>(Console.ReadLine(), out eFuelType fuelType);
+                Validation.IsValidIdNumber(licenseNumber);
+                if(m_Garage.GetVehicleByLicense(licenseNumber).GetType().Name == "ElectricCar")
+                {
+                    throw new ArgumentException("This car is on fuel");
+                }
+                Console.WriteLine("Please enter the gas type:");
+                if(!Enum.TryParse<eFuelType>(Console.ReadLine(), out eFuelType fuelType))
+                {
+                    throw new ArgumentException("type of fuel does not fit");
+                }
+                Console.WriteLine("Please enter the amount to add:");
                 float LitersToAdd = float.Parse(Console.ReadLine());
                 m_Garage.ReFuelVehicle(licenseNumber, fuelType, LitersToAdd);
             }

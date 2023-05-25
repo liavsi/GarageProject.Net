@@ -25,6 +25,7 @@ namespace Ex03.GarageLogic
         {
             string numOfWheelsStr = i_ManufacturProparties[VehicleFactory.NumOfWheelIndex];
             string maxWheelPressureStr = i_ManufacturProparties[VehicleFactory.MaxWheelPressureIndex];
+
             r_LicenseNumber = i_LicenseNumber;
             if (int.TryParse(numOfWheelsStr, out int numOfWheels) && int.TryParse(maxWheelPressureStr, out int maxWheelPressure))
             {
@@ -61,7 +62,7 @@ namespace Ex03.GarageLogic
             (i_PropartiesKeyValue.TryGetValue(CURR_ENERGY_PRECENT, out string currentEnergyPrecentStr)) &&
             i_PropartiesKeyValue.TryGetValue(WHEEL_MANUFACTURE, out string wheelManufacture))
             {
-                if (float.TryParse(currentWheelPressurStr, out float currentWheelPressure))
+                if (Validation.IsValidWheelPressure(currentWheelPressurStr, out float currentWheelPressure))
                 {
                     foreach (Wheel wheel in m_Wheels)
                     {
@@ -69,25 +70,8 @@ namespace Ex03.GarageLogic
                         wheel.Manufactur = wheelManufacture;
                     }
                 }
-                else
-                {
-                    throw new FormatException("couldnt Parse this input" + currentWheelPressurStr);
-                }
-                if (float.TryParse(currentEnergyPrecentStr, out float currentEnergyPrecent))
-                {
-                    if (currentEnergyPrecent > 0f && currentEnergyPrecent < 100f)
-                    {
-                        m_RemainingEnergyPercentage = currentEnergyPrecent;
-                    }
-                    else
-                    {
-                        throw new ValueOutOfRangeException(currentEnergyPrecent, 0f, 100f);
-                    }    
-                }
-                else
-                {
-                    throw new FormatException("couldnt Parse this input" + currentEnergyPrecentStr);
-                }
+                
+                Validation.IsValidEnergyPrecentage(currentEnergyPrecentStr, out float currentEnergyPrecent,ref m_RemainingEnergyPercentage);
             }
             else
             {

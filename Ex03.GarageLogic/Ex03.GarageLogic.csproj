@@ -48,7 +48,6 @@
     <Compile Include="VehicleFactory.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
-    <Compile Include="ConsoleOutputs.cs" />
     <Compile Include="ElectricMotorcycle.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Vehicle.cs" />
