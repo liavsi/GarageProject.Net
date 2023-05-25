@@ -32,6 +32,14 @@ Press the number of the action desired:
 
         const string m_VehicleAlreadyInGarage = "This vehicle is already in our garage, and now in Repair";
         const string m_InvalidInput = "The input you have tried to submit is invalid";
+
+        public static string PressEnterToContinue
+        {
+            get
+            {
+                return "Press enter To Continue..";
+            }
+        }
         public static string WelcomeScreen
         {
             get

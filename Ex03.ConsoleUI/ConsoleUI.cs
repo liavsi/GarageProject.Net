@@ -63,6 +63,7 @@ namespace Ex03.ConsoleUI
                         Console.WriteLine(Messages.InvalidInput);
                         break;
                 }
+                ClearScrean();
             }
         }
         private void PrintWelcomeScreen()
@@ -72,6 +73,12 @@ namespace Ex03.ConsoleUI
         private void PrintMenu()
         {
             Console.WriteLine(Messages.Menu);
+        }
+        private void ClearScrean()
+        {
+            Console.WriteLine(Messages.PressEnterToContinue);
+            Console.ReadLine();
+            Ex02.ConsoleUtils.Screen.Clear();
         }
         private eUserSelect GetUsersChoice()
         {
@@ -227,11 +234,17 @@ namespace Ex03.ConsoleUI
         public void InflateTiresToMaxCapacity()
         {
             string licenseNumber;
-
             Console.WriteLine("You chose to inflate the tires to the maximum capacity");
             Console.WriteLine("Please enter the vehicles' license number:");
-            licenseNumber = Console.ReadLine();
-            m_Garage.InflateWheelsToMax(licenseNumber);
+            try
+            {
+                licenseNumber = Console.ReadLine();
+                m_Garage.InflateWheelsToMax(licenseNumber);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
         public void ReFuelVehicle()
         {
@@ -244,8 +257,13 @@ namespace Ex03.ConsoleUI
                 float LitersToAdd = float.Parse(Console.ReadLine());
                 m_Garage.ReFuelVehicle(licenseNumber, fuelType, LitersToAdd);
             }
+            catch(ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             catch(Exception e)
             {
+
                 Console.WriteLine(e.Message);
             }
 

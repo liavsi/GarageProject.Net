@@ -87,7 +87,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException();
+                throw new ArgumentException("No such License number in Garage");
             }
         }
 
@@ -107,7 +107,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException();
+                throw new ArgumentException("No such License number in Garage");
             }
         }
 
