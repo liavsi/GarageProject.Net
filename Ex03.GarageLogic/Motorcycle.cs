@@ -7,10 +7,10 @@ namespace Ex03.GarageLogic
 {
     public enum LicenseType
     {
-        A1,
-        A2,
-        AA,
-        B1
+        a1,
+        a2,
+        aa,
+        b1
     }
     internal class Motorcycle
     {

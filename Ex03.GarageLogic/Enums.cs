@@ -13,25 +13,25 @@ namespace Ex03.GarageLogic
     }
     public enum eFuelType
     {
-        Octan95 = 1,
-        Octan96,
-        Octan98,
-        Soler
+        octan95 = 1,
+        octan96,
+        octan98,
+        soler
     }
 
     public enum eCarColor
     {
-        White = 1,
-        Black,
-        Yellow,
-        Red
+        white = 1,
+        black,
+        yellow,
+        red
     }
     public enum eLicenseType
     {
-        A = 1,
-        A1,
-        AA,
-        B
+        a1 = 1,
+        a2,
+        aa,
+        b
     }
 
 

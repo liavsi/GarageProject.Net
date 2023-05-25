@@ -33,7 +33,7 @@ namespace Ex03.GarageLogic
             if(i_PropartiesKeyValue.TryGetValue(OWNER_NAME, out m_OwenerName)
                 && i_PropartiesKeyValue.TryGetValue(OWNER_PHONE, out m_OwenerPhone))
             {
-                Validation.IsValidIdNumber(m_OwenerPhone);
+                Validation.IsValidOwner(m_OwenerPhone, m_OwenerName);
             }
             else
             {

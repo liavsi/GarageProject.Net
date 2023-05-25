@@ -16,7 +16,8 @@ namespace Ex03.GarageLogic
         {
             string fuelTypeStr = i_ManufacturProparties[VehicleFactory.FuelTypeIndex];
             string fuelTankCapacityStr = i_ManufacturProparties[VehicleFactory.FuelTankIndex];
-            if (!(Enum.TryParse<eFuelType>(fuelTypeStr, out m_FuelType) && float.TryParse(fuelTankCapacityStr,out m_FuelTankCapacity)))
+
+            if (!(Enum.TryParse<eFuelType>(fuelTypeStr.ToLower(), out m_FuelType) && float.TryParse(fuelTankCapacityStr,out m_FuelTankCapacity)))
             {
                 throw new FormatException("couldnt Parse this input" + fuelTypeStr +"or" + fuelTankCapacityStr);
             }
@@ -56,7 +57,8 @@ namespace Ex03.GarageLogic
         }
         public override string ToString()
         {
-            string FuelString = base.ToString() + string.Format(@"Engine: Fuel
+            string FuelString = base.ToString() + string.Format(@"
+Engine: Fuel
 FuelType: {0}
 Fuel Tank Capacity: {1}
 Current Liters Remain: {2}", m_FuelType, m_FuelTankCapacity, m_CurrentFuelLevel);

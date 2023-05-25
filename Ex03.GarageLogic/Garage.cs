@@ -25,6 +25,7 @@ namespace Ex03.GarageLogic
         public bool TryEnterVehicleByLicense(string i_License)
         {
             bool isEntered = m_Vehicles.ContainsKey(i_License);
+
             if (isEntered)
             {
                 ChangeVehicleStatus(i_License, eVehicleStatus.InRepair); 
